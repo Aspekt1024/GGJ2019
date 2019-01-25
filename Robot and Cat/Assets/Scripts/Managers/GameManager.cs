@@ -8,13 +8,12 @@ namespace RobotCat
     {
         private RCStatics statics;
 
-
-        void Awake()
+        private void Awake()
         {
             statics = new RCStatics(this);
         }
 
-        void Update()
+        private void Update()
         {
 
         }
