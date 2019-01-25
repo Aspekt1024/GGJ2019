@@ -7,9 +7,15 @@ namespace RobotCat.Objects
     {
         CupBase,
     }
-    public class BaseComponent : MonoBehaviour
+    public class PlacematComponent : MonoBehaviour
     {
         public PlaceableObject placeable;
         public GameObject itemLocation;
+
+        public void positionObject(GrabbableObject obj)
+        {
+            obj.transform.position = itemLocation.transform.position;
+            obj.transform.localRotation = Quaternion.identity;
+        }
     }
 }

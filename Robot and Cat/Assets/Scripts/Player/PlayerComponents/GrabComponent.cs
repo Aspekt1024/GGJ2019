@@ -54,7 +54,10 @@ namespace RobotCat.Player
             switch (state)
             {
                 case States.HoldingObject:
-                    CheckForPlacemat();
+                    if (!CheckForPlacemat())
+                    {
+                        currentHeld.transform.position = ObjectHoldPositioner.position;
+                    }
                     break;
                 case States.EmptyHands:
                     CheckForGrabbable();
@@ -64,16 +67,23 @@ namespace RobotCat.Player
             }
         }
 
-        private void CheckForPlacemat()
+        private bool CheckForPlacemat()
         {
             ray = new Ray(transform.position, transform.forward);
-            hitObject = Physics.Raycast(ray, out hit, 3f);
+            hitObject = Physics.Raycast(ray, out hit, 3f, LayerUtil.GetLayerMask(Layers.ObjectPlacemat));
+            if (hitObject)
+            {
+                var placemat = hit.collider.gameObject.GetComponentInParent<PlacematComponent>();
+                placemat?.positionObject(currentHeld);
+                return true;
+            }
+            return false;
         }
 
         private void CheckForGrabbable()
         {
             ray = new Ray(transform.position, transform.forward);
-            hitObject = Physics.Raycast(ray, out hit, 3f);
+            hitObject = Physics.Raycast(ray, out hit, 3f, LayerUtil.GetLayerMask(Layers.GrabbableObject));
         }
 
         private void CheckforObject()
@@ -84,7 +94,6 @@ namespace RobotCat.Player
                 var grabbable = hit.collider.gameObject.GetComponentInParent<GrabbableObject>();
                 if(grabbable != null)
                 {
-                    grabbable.heldBy(ObjectHoldPositioner);
                     state = States.HoldingObject;
                     currentHeld = grabbable;
                 }

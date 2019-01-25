@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace RobotCat.Objects
 {
-    public enum GrabbableObjects
+     public enum GrabbableObjects
     {
         Cup,
     }
@@ -17,7 +17,6 @@ namespace RobotCat.Objects
     {
         public GrabbableObjects ObjectType;
         private bool held = false;
-        private Transform holder;
         private Rigidbody rigidbody;
         public void Start()
         {
@@ -25,14 +24,9 @@ namespace RobotCat.Objects
         }
         public void Update()
         {
-            if (held)
-            {
-                gameObject.transform.position = holder.position;
-            }
         }
         public void heldBy(Transform holderTransform)
         {
-            holder = holderTransform;
             held = true;
             //rigidbody.isKinematic = true;
         }
