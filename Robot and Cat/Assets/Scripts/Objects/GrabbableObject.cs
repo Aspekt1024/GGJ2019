@@ -15,7 +15,7 @@ namespace RobotCat.Objects
 
     public class GrabbableObject : MonoBehaviour
     {
-
+        public GrabbableObjects ObjectType;
 
     }
 }

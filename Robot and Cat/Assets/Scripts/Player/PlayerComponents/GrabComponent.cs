@@ -13,14 +13,33 @@ namespace RobotCat.Player
         public Transform ObjectHoldPositioner;
 
         private GrabbableObject currentHeld;
-        private GameObject currentFocus;
+        private GrabbableObject currentFocus;
+
+        private enum States
+        {
+            HoldingObject, EmptyHands
+        }
+        private States state;
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            switch (state)
             {
-                CheckforObject();   
-            }   
+                case States.HoldingObject:
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        DropObject();
+                    }
+                    break;
+                case States.EmptyHands:
+                    if (Input.GetKeyDown(KeyCode.E))
+                    {
+                        CheckforObject();
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void CheckforObject()
@@ -29,14 +48,32 @@ namespace RobotCat.Player
             RaycastHit hit;
             bool hitObject = Physics.Raycast(ray, out hit, 3f);
 
-            if (hitObject && hit.collider.gameObject.layer == LayerMask.NameToLayer("GrabbableObject"))
+            if (hitObject)
             {
-                currentHeld = hit.collider.gameObject.GetComponentInParent<GrabbableObject>();
+                var grabbable = hit.collider.gameObject.GetComponentInParent<GrabbableObject>();
                 if (currentHeld != null)
                 {
-                    currentHeld.transform.position = ObjectHoldPositioner.position;
+
                 }
+                if (grabbable == currentHeld)
+                {
+
+                }
+                else
+                {
+                    currentHeld = grabbable;
+                    if (currentHeld != null)
+                    {
+                        currentHeld.transform.position = ObjectHoldPositioner.position;
+                    }
+                }
+
             }
+        }
+
+        private void DropObject()
+        {
+
         }
     }
 }
