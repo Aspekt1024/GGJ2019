@@ -17,7 +17,7 @@ TagManager:
   - Knockable
   - Immovable
   - Player
-  - 
+  - GrabbableObject
   - 
   - 
   - 
