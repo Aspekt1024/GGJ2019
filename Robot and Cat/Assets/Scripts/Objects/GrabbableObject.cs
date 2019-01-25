@@ -7,8 +7,15 @@ using UnityEngine;
 
 namespace RobotCat.Objects
 {
+    public enum GrabbableObjects
+    {
+        Cup,
+    }
+
+
     public class GrabbableObject : MonoBehaviour
     {
+
 
     }
 }
