@@ -9,8 +9,8 @@ namespace RobotCat.Player
 {
     public class RotationComponent : MonoBehaviour
     {
-        public float YawSensitivity = 0.15f;
-        public float PitchSensitivity = 0.15f;
+        public float YawSensitivity = 15f;
+        public float PitchSensitivity = 15f;
 
         private float minX = -360f;
         private float maxX = 360f;
