@@ -19,6 +19,5 @@ namespace RobotCat.Player
 
         }
 
-        protected abstract void SetActive();
     }
 }
