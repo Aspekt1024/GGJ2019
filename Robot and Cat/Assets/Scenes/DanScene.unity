@@ -570,6 +570,39 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 963442485}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &965587344 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: c541096dca448324796b6ace38864548,
+    type: 3}
+  m_PrefabInternal: {fileID: 1775787065}
+--- !u!136 &965587348
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 965587344}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 6.914034
+  m_Height: 15.1271515
+  m_Direction: 1
+  m_Center: {x: 1.9798031, y: 7.5635757, z: -0.0000038146973}
+--- !u!54 &965587350
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 965587344}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1343691723
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,7 +733,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d9805c816e52f6f41bf7e02692b3fb1f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.53
+      value: -2.783
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: d9805c816e52f6f41bf7e02692b3fb1f, type: 3}
       propertyPath: m_LocalRotation.x
@@ -888,7 +921,7 @@ GameObject:
   - component: {fileID: 1577807542}
   - component: {fileID: 1577807541}
   - component: {fileID: 1577807540}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Plane
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1038,7 +1071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78027a7bc34557f4f8b27b17ee7ebc93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 7
+  MoveSpeed: 3
 --- !u!114 &1773418560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1050,8 +1083,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd7543112a8979c41aa366cac1082679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpSpeed: 10
-  floor: {fileID: 0}
+  JumpSpeed: 3
 --- !u!114 &1773418561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1101,6 +1133,10 @@ Prefab:
     - target: {fileID: 400000, guid: c541096dca448324796b6ace38864548, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c541096dca448324796b6ace38864548, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c541096dca448324796b6ace38864548, type: 3}
@@ -1212,6 +1248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0519730dd2fda86408f519662ef4dfd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ObjectType: 0
 --- !u!54 &1873317788
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1330,7 +1367,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.03
   far clip plane: 1000
   field of view: 60
   orthographic: 0

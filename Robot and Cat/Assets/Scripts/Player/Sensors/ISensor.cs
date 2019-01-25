@@ -6,13 +6,8 @@ using System.Threading.Tasks;
 
 namespace RobotCat.Player
 {
-    public class Cat : PlayerBase
+    public interface ISensor
     {
-
-
-        private void Start()
-        {
-            
-        }
+        void Tick(float deltaTime);
     }
 }
