@@ -13,6 +13,11 @@ namespace RobotCat.Player
 
         private Rigidbody body;
 
+        [SerializeField]
+        private GameObject floor;
+        
+        private bool jumped = false;
+
         private void Awake()
         {
             body = GetComponent<Rigidbody>();
@@ -25,5 +30,12 @@ namespace RobotCat.Player
                 body.velocity = new Vector3(body.velocity.x, JumpSpeed, body.velocity.z);
             }
         }
+/*        private void OnCollisionEnter(Collision collision)
+        {
+            if(collision.gameObject.Equals(floor) && jumped == true)
+            {
+                jumped = false;
+            }
+        }*/
     }
 }

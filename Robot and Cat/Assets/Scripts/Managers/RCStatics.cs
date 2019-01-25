@@ -7,6 +7,7 @@ namespace RobotCat
         private static RCStatics instance;
 
         private GameManager gameManager;
+        private PhaseManager phase;
 
         public RCStatics(GameManager gameManager)
         {
@@ -17,9 +18,16 @@ namespace RobotCat
             }
 
             instance = this;
+            phase = new PhaseManager();
+        }
+
+        public void Tick()
+        {
+            phase.Tick();
         }
 
         public static GameManager GameManager { get { return instance.gameManager; } }
+        public static PhaseManager Phase { get { return instance.phase; } }
 
     }
 }
