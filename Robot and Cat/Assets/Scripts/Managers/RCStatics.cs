@@ -18,6 +18,7 @@ namespace RobotCat
             }
 
             instance = this;
+            this.gameManager = gameManager;
             phase = new PhaseManager();
         }
 

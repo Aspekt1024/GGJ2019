@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace RobotCat.Player
 {
@@ -12,30 +7,27 @@ namespace RobotCat.Player
         public float JumpSpeed;
 
         private Rigidbody body;
-
-        [SerializeField]
-        private GameObject floor;
-        
-        private bool jumped = false;
+        private GroundSensor groundSensor;
 
         private void Awake()
         {
             body = GetComponent<Rigidbody>();
+            groundSensor = new GroundSensor(body);
         }
 
         private void FixedUpdate()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            groundSensor.Tick(Time.fixedDeltaTime);
+
+            if (Input.GetKeyDown(KeyCode.Space) && groundSensor.IsOnGround)
             {
-                body.velocity = new Vector3(body.velocity.x, JumpSpeed, body.velocity.z);
+                Jump();
             }
         }
-/*        private void OnCollisionEnter(Collision collision)
+
+        private void Jump()
         {
-            if(collision.gameObject.Equals(floor) && jumped == true)
-            {
-                jumped = false;
-            }
-        }*/
+            body.velocity = new Vector3(body.velocity.x, JumpSpeed, body.velocity.z);
+        }
     }
 }
