@@ -14,6 +14,9 @@ namespace RobotCat.Player
 
         private GrabbableObject currentHeld;
         private GrabbableObject currentFocus;
+        private Ray ray;
+        private bool hitObject;
+        private RaycastHit hit;
 
         private enum States
         {
@@ -21,6 +24,10 @@ namespace RobotCat.Player
         }
         private States state;
 
+        public void Start()
+        {
+            state = States.EmptyHands;
+        }
         private void Update()
         {
             switch (state)
@@ -42,15 +49,46 @@ namespace RobotCat.Player
             }
         }
 
+        public void FixedUpdate()
+        {
+            switch (state)
+            {
+                case States.HoldingObject:
+                    CheckForPlacemat();
+                    break;
+                case States.EmptyHands:
+                    CheckForGrabbable();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void CheckForPlacemat()
+        {
+            ray = new Ray(transform.position, transform.forward);
+            hitObject = Physics.Raycast(ray, out hit, 3f);
+        }
+
+        private void CheckForGrabbable()
+        {
+            ray = new Ray(transform.position, transform.forward);
+            hitObject = Physics.Raycast(ray, out hit, 3f);
+        }
+
         private void CheckforObject()
         {
-            Ray ray = new Ray(transform.position, transform.forward);
-            RaycastHit hit;
-            bool hitObject = Physics.Raycast(ray, out hit, 3f);
-
             if (hitObject)
             {
+                Debug.Log(hit.collider.gameObject.name);
                 var grabbable = hit.collider.gameObject.GetComponentInParent<GrabbableObject>();
+                if(grabbable != null)
+                {
+                    grabbable.heldBy(ObjectHoldPositioner);
+                    state = States.HoldingObject;
+                    currentHeld = grabbable;
+                }
+                /*
                 if (currentHeld != null)
                 {
 
@@ -67,13 +105,16 @@ namespace RobotCat.Player
                         currentHeld.transform.position = ObjectHoldPositioner.position;
                     }
                 }
+                */
 
             }
         }
 
         private void DropObject()
         {
-
+            currentHeld.release();
+            currentHeld = null;
+            state = States.EmptyHands;
         }
     }
 }
