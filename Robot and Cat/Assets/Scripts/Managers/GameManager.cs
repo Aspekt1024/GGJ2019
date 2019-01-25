@@ -15,7 +15,7 @@ namespace RobotCat
 
         private void Update()
         {
-
+            statics.Tick();
         }
     }
 }
