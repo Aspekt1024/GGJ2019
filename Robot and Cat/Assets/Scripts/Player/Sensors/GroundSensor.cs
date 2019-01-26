@@ -13,6 +13,7 @@ namespace RobotCat.Player
         private Rigidbody body;
         private Collider collider;
 
+        private bool recentlyJumped;
         private float timeLeftGround;
         private const float LATE_JUMP_THRESHOLD = 0.4f;
 
@@ -45,7 +46,21 @@ namespace RobotCat.Player
             DebugUI.SetText(state.ToString());
         }
 
-        public bool IsOnGround { get { return state == States.Grounded || Time.time < timeLeftGround + LATE_JUMP_THRESHOLD; } }
+        public bool IsOnGround
+        {
+            get
+            {
+                if (state == States.Grounded)
+                {
+                    return true;
+                }
+                else if (Time.time < timeLeftGround + LATE_JUMP_THRESHOLD && !recentlyJumped)
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
 
         private float GetLowerExtent()
         {
@@ -83,7 +98,8 @@ namespace RobotCat.Player
         public void OnJump()
         {
             // we don't want to double jump
-            timeLeftGround = 0f;
+            recentlyJumped = true;
+            Task.Delay(500).ContinueWith(t => recentlyJumped = false);
         }
     }
 }

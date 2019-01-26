@@ -27,7 +27,7 @@ namespace RobotCat.Audio
 
         private enum States
         {
-            MainThemeLoop, MainOuttro, SleepTheme, SleepThemeLoop
+            MainThemeLoop, MainOuttro, SleepTheme
         }
         private States state;
         
@@ -94,7 +94,7 @@ namespace RobotCat.Audio
                 case States.MainOuttro:
                     if (currentRequest == ThemeRequests.SleepTheme)
                     {
-                        state = States.SleepThemeLoop;
+                        state = States.SleepTheme;
                         currentRequest = ThemeRequests.None;
                         return SleepTheme;
                     }
