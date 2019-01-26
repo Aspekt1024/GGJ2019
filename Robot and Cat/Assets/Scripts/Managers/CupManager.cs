@@ -15,7 +15,7 @@ namespace RobotCat
         public GrabbableObject cupPrefab;
         void Awake()
         {
-            if (instance != null)
+           /* if (instance != null)
             {
                 Destroy(this);
             }
@@ -32,8 +32,7 @@ namespace RobotCat
             {
                 cupHolder = GameObject.Instantiate<GrabbableObject>(cupPrefab);
                 potentialCups.Add(cupHolder);
-            }
-            initiateAGame();
+            }*/
 
         }
 

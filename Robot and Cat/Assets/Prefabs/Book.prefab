@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 33533192698706552}
   - component: {fileID: 23782690991228006}
   - component: {fileID: 65029716608290296}
+  - component: {fileID: 54447710552482248}
   m_Layer: 12
   m_Name: book
   m_TagString: Untagged
@@ -37,6 +38,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4914043566096892}
+  - component: {fileID: 114600515547449318}
   m_Layer: 12
   m_Name: Book
   m_TagString: Untagged
@@ -63,14 +65,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1921301940661500}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.679, y: 0, z: -1.715}
+  m_LocalRotation: {x: 0.1181947, y: 0.5661602, z: -0.082450874, w: 0.8116}
+  m_LocalPosition: {x: -0.42, y: 0.688, z: 3.481}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4805175162625464}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 16.572, y: 69.798004, z: 0}
 --- !u!23 &23782690991228006
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -113,6 +115,21 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1693560133903776}
   m_Mesh: {fileID: 4300000, guid: d792cecf66acdb24cae67053551b91b5, type: 3}
+--- !u!54 &54447710552482248
+Rigidbody:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1693560133903776}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!65 &65029716608290296
 BoxCollider:
   m_ObjectHideFlags: 1
@@ -125,3 +142,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 20.80382, y: 30.028494, z: 5.574578}
   m_Center: {x: 0, y: 14.180144, z: 0}
+--- !u!114 &114600515547449318
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1921301940661500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0519730dd2fda86408f519662ef4dfd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObjectType: 0

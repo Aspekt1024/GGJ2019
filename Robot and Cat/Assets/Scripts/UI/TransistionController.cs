@@ -46,7 +46,6 @@ namespace RobotCat
             themeSource.Play();
             themeSource.loop = true;
             //Start the music maybe while increasing volume?
-            CupManager.instance.initiateAGame();
             currentTime = 0.0f;
             transistioning = true;
 
