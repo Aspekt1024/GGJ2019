@@ -15,8 +15,7 @@ namespace RobotCat
         {
             if (instance != null)
             {
-                Debug.LogError($"Detected multiple versions of {nameof(RCStatics)}. This should only be created at runtime.");
-                return;
+                Debug.LogWarning($"Detected multiple versions of {nameof(RCStatics)}. This should only be created from the GameManager.");
             }
 
             instance = this;

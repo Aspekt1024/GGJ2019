@@ -67,6 +67,10 @@ namespace RobotCat.Objects
             {
                 ScoreManager.instance.battedObject();
             }
+            else
+            {
+                ScoreManager.instance.reBattedObject();
+            }
             struck = true;
         }
 
