@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace RobotCat.Audio
 {
+    
     public class MMCAudioManager : MonoBehaviour
     {
         public AudioClip MainTheme;
@@ -30,8 +31,16 @@ namespace RobotCat.Audio
         }
         private States state;
         
-        private void Start()
+        private void Awake()
         {
+            MMCAudioManager[] managers = FindObjectsOfType<MMCAudioManager>();
+            if (managers.Length > 1)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            Object.DontDestroyOnLoad(this);
             state = States.MainThemeLoop;
             PlayClip(MainTheme);
         }

@@ -24,6 +24,10 @@ namespace RobotCat
             this.gameManager = gameManager;
             score = Object.FindObjectOfType<ScoreManager>();
             ui = Object.FindObjectOfType<UIManager>();
+        }
+
+        public void OnStart()
+        {
             audio = Object.FindObjectOfType<MMCAudioManager>();
         }
 

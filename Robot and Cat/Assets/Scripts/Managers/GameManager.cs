@@ -18,6 +18,7 @@ namespace RobotCat
         private void Start()
         {
             RCStatics.UI.HideMenu();
+            statics.OnStart();
         }
         
         private void Update()
