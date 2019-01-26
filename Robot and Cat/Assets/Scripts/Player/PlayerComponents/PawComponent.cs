@@ -20,6 +20,7 @@ namespace RobotCat.Player
 
         private void Update()
         {
+            if (RCStatics.GameManager.IsInMenu) return;
             if (Input.GetMouseButtonDown(0))
             {
                 PawLeft();

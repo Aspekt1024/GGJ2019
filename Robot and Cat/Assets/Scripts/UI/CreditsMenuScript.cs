@@ -1,20 +1,27 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class CreditsMenuScript : MonoBehaviour {
     public Canvas creditsCranvas;
 
+    public void Hide()
+    {
+        creditsCranvas.gameObject.SetActive(false);
+    }
+
+    public void Show()
+    {
+        creditsCranvas.gameObject.SetActive(true);
+    }
+
     public void ToggleCredits()
     {
-        if (creditsCranvas.gameObject.active)
+        if (creditsCranvas.gameObject.activeSelf)
         {
-            creditsCranvas.gameObject.SetActive(false);
+            Hide();
         }
         else
         {
-            creditsCranvas.gameObject.SetActive(true);
+            Show();
         }
     }
 }

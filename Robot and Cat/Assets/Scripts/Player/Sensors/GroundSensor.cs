@@ -70,7 +70,8 @@ namespace RobotCat.Player
 
         private bool GroundHitCheck()
         {
-            Ray ray = new Ray(body.transform.position, Vector3.down);
+            Vector3 rayPos = body.transform.position;
+            Ray ray = new Ray(rayPos, Vector3.down);
 
             float dist = GetLowerExtent();
 
@@ -82,8 +83,9 @@ namespace RobotCat.Player
             {
                 for (int y = -(gridSplit - 1) / 2; y < (gridSplit - 1) / 2; y++)
                 {
-                    float xPos = pos.x + x * collider.bounds.extents.x;
-                    float yPos = pos.y + y * collider.bounds.extents.y;
+                    rayPos.x = pos.x + x * collider.bounds.extents.x;
+                    rayPos.z = pos.z + y * collider.bounds.extents.y;
+                    ray = new Ray(rayPos, Vector3.down);
 
                     if (Physics.Raycast(ray, dist, LayerUtil.GetLayerMask(Layers.Surface)))
                     {

@@ -30,6 +30,7 @@ namespace RobotCat.Player
 
         void Update()
         {
+            if (RCStatics.GameManager.IsInMenu) return;
             // Input.GetAxis() is used to get the user's input
             // You can furthor set it on Unity. (Edit, Project Settings, Input)
             /*translation = Input.GetAxis("Vertical") * speed * Time.deltaTime;

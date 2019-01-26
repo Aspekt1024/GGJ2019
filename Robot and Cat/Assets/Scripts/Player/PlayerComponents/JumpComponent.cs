@@ -19,6 +19,7 @@ namespace RobotCat.Player
 
         private void FixedUpdate()
         {
+            if (RCStatics.GameManager.IsInMenu) return;
             groundSensor.Tick(Time.fixedDeltaTime);
 
             if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.C)) && groundSensor.IsOnGround)

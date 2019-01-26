@@ -13,6 +13,14 @@ namespace RobotCat.UI
         public Image ExcitementBar;
         public MenuScripts Menu;
 
+        private CreditsMenuScript creditsMenu;
+
+        private void Awake()
+        {
+            creditsMenu = FindObjectOfType<CreditsMenuScript>();
+            creditsMenu?.Hide();
+        }
+
         public void SetExcitement(float value)
         {
             ExcitementBar.fillAmount = value;
@@ -26,6 +34,16 @@ namespace RobotCat.UI
         public void HideMenu()
         {
             Menu.Hide();
+        }
+
+        public void ShowCredits()
+        {
+            creditsMenu.Show();
+        }
+
+        public void HideCredits()
+        {
+            creditsMenu.Hide();
         }
     }
 }
