@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace RobotCat.Objects
 {
-     public enum GrabbableObjects
+    public enum GrabbableObjects
     {
         Cup,
     }
@@ -15,27 +15,21 @@ namespace RobotCat.Objects
 
     public class GrabbableObject : MonoBehaviour
     {
+        private void Update()
+        {
+
+        }
+
         public GrabbableObjects ObjectType;
-        private bool held = false;
-        private Rigidbody rigidbody;
-        public void Start()
+        public void gravityOn()
         {
-            rigidbody = GetComponent<Rigidbody>();
+            GetComponent<Rigidbody>().useGravity = true;
         }
-        public void Update()
+
+        public void gravityOff()
         {
-        }
-        public void heldBy(Transform holderTransform)
-        {
-            held = true;
-            //rigidbody.isKinematic = true;
-        }
-        
-        public void release()
-        {
-            held = false;
-            rigidbody.velocity = Vector3.zero;
-            //rigidbody.isKinematic = false;
+            GetComponent<Rigidbody>().useGravity = false;
+
         }
     }
 }

@@ -13,10 +13,7 @@ namespace RobotCat.Player
         public Transform ObjectHoldPositioner;
 
         private GrabbableObject currentHeld;
-        private GrabbableObject currentFocus;
-        private Ray ray;
-        private bool hitObject;
-        private RaycastHit hit;
+        private PlacematComponent currentPlacemat = null;
 
         private enum States
         {
@@ -47,16 +44,20 @@ namespace RobotCat.Player
                 default:
                     break;
             }
-        }
 
-        public void FixedUpdate()
-        {
+
             switch (state)
             {
                 case States.HoldingObject:
-                    if (!CheckForPlacemat())
+                    UpdatePlacemat();
+                    currentHeld.gravityOff();
+                    if (currentPlacemat == null)
                     {
                         currentHeld.transform.position = ObjectHoldPositioner.position;
+                    }
+                    else
+                    {
+                        currentPlacemat.positionObject(currentHeld);
                     }
                     break;
                 case States.EmptyHands:
@@ -67,27 +68,38 @@ namespace RobotCat.Player
             }
         }
 
-        private bool CheckForPlacemat()
+        public void FixedUpdate()
         {
-            ray = new Ray(transform.position, transform.forward);
-            hitObject = Physics.Raycast(ray, out hit, 3f, LayerUtil.GetLayerMask(Layers.ObjectPlacemat));
+        }
+
+        private void UpdatePlacemat()
+        {
+            Ray ray = new Ray(transform.position, transform.forward);
+            RaycastHit hit;
+            bool hitObject = Physics.Raycast(ray, out hit, 3f, LayerUtil.GetLayerMask(Layers.ObjectPlacemat));
             if (hitObject)
             {
-                var placemat = hit.collider.gameObject.GetComponentInParent<PlacematComponent>();
-                placemat?.positionObject(currentHeld);
-                return true;
+                currentPlacemat = hit.collider.gameObject.GetComponentInParent<PlacematComponent>();
             }
-            return false;
+            else
+            {
+                currentPlacemat = null;
+            }
         }
 
         private void CheckForGrabbable()
         {
-            ray = new Ray(transform.position, transform.forward);
-            hitObject = Physics.Raycast(ray, out hit, 3f, LayerUtil.GetLayerMask(Layers.GrabbableObject));
+            Ray ray = new Ray(transform.position, transform.forward);
+            RaycastHit hit;
+            bool hitObject = Physics.Raycast(ray, out hit, 3f, LayerUtil.GetLayerMask(Layers.GrabbableObject));
+            // TODO illuminate object
         }
 
         private void CheckforObject()
         {
+            Ray ray = new Ray(transform.position, transform.forward);
+            RaycastHit hit;
+            bool hitObject = Physics.Raycast(ray, out hit, 3f, LayerUtil.GetLayerMask(Layers.GrabbableObject));
             if (hitObject)
             {
                 Debug.Log(hit.collider.gameObject.name);
@@ -97,33 +109,15 @@ namespace RobotCat.Player
                     state = States.HoldingObject;
                     currentHeld = grabbable;
                 }
-                /*
-                if (currentHeld != null)
-                {
-
-                }
-                if (grabbable == currentHeld)
-                {
-
-                }
-                else
-                {
-                    currentHeld = grabbable;
-                    if (currentHeld != null)
-                    {
-                        currentHeld.transform.position = ObjectHoldPositioner.position;
-                    }
-                }
-                */
-
             }
         }
 
         private void DropObject()
         {
-            currentHeld.release();
+            currentHeld.gravityOn();
             currentHeld = null;
             state = States.EmptyHands;
+
         }
     }
 }
