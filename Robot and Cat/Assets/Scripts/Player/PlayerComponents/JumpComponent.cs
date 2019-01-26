@@ -20,7 +20,8 @@ namespace RobotCat.Player
         {
             gracePeriod = JumpGracePeriod();
             body = GetComponent<Rigidbody>();
-            groundSensor = new GroundSensor(body);
+            var collider = GetComponentInChildren<Collider>();
+            groundSensor = new GroundSensor(body, collider);
         }
 
         private void FixedUpdate()
