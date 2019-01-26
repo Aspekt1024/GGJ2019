@@ -9,29 +9,76 @@ namespace RobotCat.Player
 {
     public class MovementComponent : MonoBehaviour
     {
-        public float MoveSpeed = 10f;
 
         private Rigidbody body;
+        public AnimationCurve movementCurve;
+        public float maxSpeed = 5.0f;
+        public float accelerationTime = 0.0f;
+        public float timeToMaxSpeed = 1.0f;
+        private float timeSinceInput = 0.0f;
+        private bool keyDown = false;
 
         private void Awake()
         {
             body = GetComponent<Rigidbody>();
         }
+        
+        private float translation;
+        private float strafe;
 
-        private void FixedUpdate()
+        void Update()
         {
-            float hAxis = Input.GetAxis("Horizontal");
-            float vAxis = Input.GetAxis("Vertical");
+            // Input.GetAxis() is used to get the user's input
+            // You can furthor set it on Unity. (Edit, Project Settings, Input)
+            /*translation = Input.GetAxis("Vertical") * speed * Time.deltaTime;
+            straffe = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+            
+            transform.Translate(straffe, 0, translation);
 
-            float xVel = hAxis * MoveSpeed;
-            float zVel = vAxis * MoveSpeed;
+            if (Input.GetKeyDown("escape"))
+            {
+                // turn on the cursor
+                Cursor.lockState = CursorLockMode.None;
+            }*/
+            translation = Input.GetAxis("Vertical");
+            strafe = Input.GetAxis("Horizontal");
+            Vector3 forwardVel = body.transform.forward;
+            Vector3 strafeVel = body.transform.right;
+            float resolvedSpeed = 0.0f;
 
-            var forwardVel = transform.forward * vAxis;
-            var sideVel = transform.right * hAxis;
+            if ((Mathf.Abs(translation) > 0.01) || (Mathf.Abs(strafe) > 0.01))
+            {
+                timeSinceInput += Time.deltaTime/timeToMaxSpeed;
+                timeSinceInput = Mathf.Clamp(timeSinceInput, 0.0f, 1.0f);
 
-            var vel = (forwardVel + sideVel).normalized * MoveSpeed;
+                accelerationTime = movementCurve.Evaluate(timeSinceInput);
+                resolvedSpeed = accelerationTime * maxSpeed;
 
+                forwardVel = body.transform.forward * translation;
+                strafeVel = body.transform.right * strafe;
+
+            }
+            else
+            {
+                timeSinceInput -= Time.deltaTime/timeToMaxSpeed;
+                timeSinceInput = Mathf.Clamp(timeSinceInput, 0.0f, 1.0f);
+
+                accelerationTime = movementCurve.Evaluate(timeSinceInput);
+                resolvedSpeed = accelerationTime * maxSpeed;
+                forwardVel = body.velocity;
+                strafeVel = new Vector3(0f, 0f, 0f) ;
+
+            }
+
+
+
+
+            Vector3 vel = strafeVel + forwardVel;
+            vel.y = 0f;
+            vel = vel.normalized * resolvedSpeed;
+            
             body.velocity = new Vector3(vel.x, body.velocity.y, vel.z);
+            
 
         }
 

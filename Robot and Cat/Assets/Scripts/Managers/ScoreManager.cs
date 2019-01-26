@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class ScoreManager
 {
+
+
     private struct ScoreItem
     {
         public GameObject obj;

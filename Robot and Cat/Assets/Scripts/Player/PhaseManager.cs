@@ -18,7 +18,6 @@ public class PhaseManager {
         robot = Object.FindObjectOfType<Robot>();
 
         cat.gameObject.SetActive(true);
-        robot.gameObject.SetActive(false);
         LoadCatPhase();
     }
 
@@ -39,18 +38,12 @@ public class PhaseManager {
         currentPhase = PossiblePhases.catPhase;
     }
 
-    private void LoadRobotPhase()
-    {
-        cat.gameObject.SetActive(false);
-        robot.gameObject.SetActive(true);
-        currentPhase = PossiblePhases.robotPhase;
-    }
+
 
     public void nextPhase()
     {
         if (currentPhase == PossiblePhases.catPhase)
         {
-            LoadRobotPhase();
 
         }
         else
