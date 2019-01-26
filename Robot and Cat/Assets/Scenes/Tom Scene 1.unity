@@ -2333,7 +2333,6 @@ GameObject:
   - component: {fileID: 1492451311}
   - component: {fileID: 1492451310}
   - component: {fileID: 1492451309}
-  - component: {fileID: 1492451312}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -2404,54 +2403,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1492451307}
   m_CullTransparentMesh: 0
---- !u!114 &1492451312
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1492451307}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25ad534c6b5639247866320872df941b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canvasController: {fileID: 0}
-  themeSource: {fileID: 0}
-  currentTime: 0
-  timeToFade: 5
-  fadeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.21099183
-      value: 0.3774661
-      inSlope: 1.5780163
-      outSlope: 1.5780163
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1001 &1497030311
 Prefab:
   m_ObjectHideFlags: 0
@@ -3595,6 +3546,7 @@ GameObject:
   - component: {fileID: 2094674390}
   - component: {fileID: 2094674393}
   - component: {fileID: 2094674392}
+  - component: {fileID: 2094674394}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -3644,8 +3596,8 @@ MonoBehaviour:
   excitementForFloor: 25
   excitementOnInitialHit: 350
   excitementDecreaseRate: 25
-  maxRateOfDecrease: 100
-  minRateOfdecrease: 5
+  maxRateOfDecrease: 1000
+  minRateOfdecrease: 1000
   excitedOnReBat: 5
   accelerationOfDecrease: 10
   score: 0
@@ -3674,6 +3626,54 @@ MonoBehaviour:
   - {fileID: 603028812}
   cupPrefab: {fileID: 114807436460196580, guid: a6235e461a7a10d46b726bddca74b343,
     type: 2}
+--- !u!114 &2094674394
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2094674389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25ad534c6b5639247866320872df941b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  canvasController: {fileID: 1492451309}
+  themeSource: {fileID: 534669903}
+  currentTime: 0
+  timeToFade: 1
+  fadeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.21099183
+      value: 0.3774661
+      inSlope: 1.5780163
+      outSlope: 1.5780163
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &2137864054
 GameObject:
   m_ObjectHideFlags: 0

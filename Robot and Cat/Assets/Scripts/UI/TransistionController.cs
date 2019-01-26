@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 namespace RobotCat
 {
     public class TransistionController : MonoBehaviour
@@ -26,7 +27,7 @@ namespace RobotCat
             //Transistion Out Music
             currentTime = 0.0f;
             transistioning = true;
-            while (true)
+            while (currentTime < timeToFade)
             {
                 currentTime += Time.deltaTime;
                 currentTime = Mathf.Min(currentTime, timeToFade);
@@ -35,6 +36,9 @@ namespace RobotCat
             }
             //Cleanup Scene and call Scene Manager
             transistioning = false;
+
+            //Load sleepign scene
+            SceneManager.LoadScene("Transmission'", LoadSceneMode.Single);
         }
 
         private IEnumerator transitionIn()
@@ -59,16 +63,19 @@ namespace RobotCat
         }
 
         // Use this for initialization
-        void Start()
+        void Awake()
         {
             if(instance != null)
             {
                 Destroy(this);
             }
             instance = this;
-            canvasController = GetComponent<CanvasGroup>();
             fadeOutEnumerator = transitionOut();
             fadeInEnumerator = transitionIn();
+        }
+
+        void Start()
+        {
             gameStart();
         }
 
