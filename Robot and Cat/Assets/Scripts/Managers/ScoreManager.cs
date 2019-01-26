@@ -4,8 +4,75 @@ using System.Linq;
 using RobotCat.Player;
 using UnityEngine;
 
-public class ScoreManager
+public class ScoreManager:MonoBehaviour
 {
+
+    public static ScoreManager instance = null;
+
+    private void Awake()
+    {
+       if(instance != null)
+        {
+            Destroy(this);
+        }
+        instance = this;
+    }
+
+    public float maxExcitement = 1000.0f;
+    public float currentExcitement = 0.0f;
+    public float excitementForCollide = 50.0f;
+    public float excitementForBat = 100.0f;
+    public float excitementForFloor = 25.0f;
+    public float excitementOnInitialHit = 350.0f;
+    public float excitementDecreaseRate = 5.0f;
+    private bool excited = false;
+
+
+
+    public void checkInitialCollide()
+    {
+        if(excited == false)
+        {
+            excited = true;
+            currentExcitement += excitementOnInitialHit;
+        }
+    }
+
+
+    void Update()
+    {
+        if(excited)
+        { 
+        currentExcitement -= excitementDecreaseRate * Time.deltaTime;
+        currentExcitement = Mathf.Clamp(currentExcitement, 0.0f, maxExcitement);
+        if (currentExcitement < 0.01f)
+        {
+            excited = false;
+            //End game state with the game manager
+        }
+            //Update UI Value
+        }
+    }
+
+    public void battedObject()
+    {
+        checkInitialCollide();
+        currentExcitement += excitementForBat;
+    }
+
+    public void collidedObject()
+    {
+        checkInitialCollide();
+        currentExcitement += excitementForCollide;
+    }
+
+    public void flooredObject()
+    {
+        checkInitialCollide();
+        currentExcitement += excitementForFloor;
+    }
+    
+
 
 
     private struct ScoreItem
@@ -20,6 +87,9 @@ public class ScoreManager
             timesTracked = 0;
         }
     }
+
+
+
 
     public float score;
     private List<ScoreItem> scoreItems;

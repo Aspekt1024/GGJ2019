@@ -8,7 +8,10 @@ public class SpawnLocation : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		if(GetComponent<MeshRenderer>() != null)
+            {
+                GetComponent<MeshRenderer>().enabled = false;
+            }
 	}
 	
 	// Update is called once per frame

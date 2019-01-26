@@ -20,6 +20,11 @@ namespace RobotCat
             RCStatics.UI.HideMenu();
         }
 
+        private void Start()
+        {
+            
+        }
+
         private void Update()
         {
             statics.Tick();
@@ -29,6 +34,8 @@ namespace RobotCat
                 RCStatics.UI.ToggleMenu();
             }
         }
+
+
     }
 }
 

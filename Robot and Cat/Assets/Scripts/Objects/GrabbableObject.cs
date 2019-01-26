@@ -11,6 +11,7 @@ namespace RobotCat.Objects
 
 
 
+
     public enum GrabbableObjects
     {
         Cup,
@@ -23,7 +24,7 @@ namespace RobotCat.Objects
         {
             GetComponent<MeshCollider>().enabled = true;
             GetComponent<MeshRenderer>().enabled = true;
-            //Set the cup to the location of it's allocated spawn
+            transform.position = spawnLocation.transform.position;
             resetCup();
         }
 
@@ -52,19 +53,31 @@ namespace RobotCat.Objects
         public void collidedWith()
         {
             //Call the score manager
+            if(!collided)
+            {
+                ScoreManager.instance.collidedObject();
+            }
             collided = true;
         }
 
         public void struckByCat()
         {
             //call score manager
+            if(!struck)
+            {
+                ScoreManager.instance.battedObject();
+            }
             struck = true;
         }
 
         public void collidedWithFloor()
         {
             //Call score manager
-            collided = true;
+            if(!hitTheFloor)
+            {
+                ScoreManager.instance.flooredObject();
+            }
+            hitTheFloor = true;
         }
 
 
@@ -85,6 +98,14 @@ namespace RobotCat.Objects
 
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            if(collision.collider.gameObject.GetComponent<Floors>())
+            {
+                collidedWithFloor();
+            }
+        }
+
         private void OnCollisionExit(Collision collision)
         {
             var c = collision.collider.gameObject.GetComponent<Cat>();
@@ -95,8 +116,7 @@ namespace RobotCat.Objects
 
             if (c != null)
             {
-                Debug.Log("Touched by cat");
-                RCStatics.Score.Track(gameObject);
+                collidedWith();
             }
         }
     }
