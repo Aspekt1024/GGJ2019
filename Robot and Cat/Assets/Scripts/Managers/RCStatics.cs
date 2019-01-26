@@ -12,6 +12,7 @@ namespace RobotCat
         private ScoreManager score;
         private UIManager ui;
         private MMCAudioManager audio;
+        private SFXManager sfx;
 
         public RCStatics(GameManager gameManager)
         {
@@ -24,6 +25,7 @@ namespace RobotCat
             this.gameManager = gameManager;
             score = Object.FindObjectOfType<ScoreManager>();
             ui = Object.FindObjectOfType<UIManager>();
+            sfx = Object.FindObjectOfType<SFXManager>();
         }
 
         public void OnStart()
@@ -35,6 +37,7 @@ namespace RobotCat
         public static ScoreManager Score { get { return instance.score; } }
         public static UIManager UI { get { return instance.ui; } }
         public static MMCAudioManager Audio { get { return instance.audio; } }
+        public static SFXManager SFX { get { return instance.sfx; } }
 
     }
 }
