@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RobotCat.UI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,10 +25,7 @@ namespace RobotCat.Player
 
         public void Tick(float deltaTime)
         {
-            RaycastHit hit;
-            Ray ray = new Ray(body.transform.position, Vector3.down);
-            float dist = GetLowerExtent();
-            bool hitGround = Physics.Raycast(ray, out hit, dist, LayerUtil.GetLayerMask(Layers.Surface));
+            bool hitGround = GroundHitCheck();
 
             if (hitGround && state == States.NotGrounded)
             {
@@ -37,6 +35,8 @@ namespace RobotCat.Player
             {
                 state = States.NotGrounded;
             }
+
+            DebugUI.SetText(state.ToString());
         }
 
         public bool IsOnGround { get { return state == States.Grounded; } }
@@ -55,6 +55,16 @@ namespace RobotCat.Player
 
             const float threshold = 0.05f;
             return lowPoint + threshold;
+        }
+
+        private bool GroundHitCheck()
+        {
+            RaycastHit hit;
+            Ray ray = new Ray(body.transform.position, Vector3.down);
+            float dist = GetLowerExtent();
+            bool success = Physics.Raycast(ray, out hit, dist, LayerUtil.GetLayerMask(Layers.Surface));
+
+            return success;
         }
     }
 }
