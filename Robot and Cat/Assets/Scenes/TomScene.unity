@@ -3189,6 +3189,7 @@ GameObject:
   - component: {fileID: 2094674391}
   - component: {fileID: 2094674390}
   - component: {fileID: 2094674392}
+  - component: {fileID: 2094674393}
   m_Layer: 0
   m_Name: Scripts
   m_TagString: Untagged
@@ -3241,6 +3242,25 @@ MonoBehaviour:
   - {fileID: 1339334523}
   cupPrefab: {fileID: 114692695482021740, guid: 45e1e424434005a43bd84fa332e57287,
     type: 2}
+--- !u!114 &2094674393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2094674389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1989ce53475a8b649ab29932bf93317b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxExcitement: 1000
+  currentExcitement: 0
+  excitementForCollide: 50
+  excitementForBat: 100
+  excitementForFloor: 25
+  excitementOnInitialHit: 350
+  excitementDecreaseRate: 5
+  score: 0
 --- !u!4 &2108179652 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400000, guid: d9805c816e52f6f41bf7e02692b3fb1f,

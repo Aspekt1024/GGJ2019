@@ -27,7 +27,6 @@ namespace RobotCat
 
         public void Tick()
         {
-            score.Tick();
         }
 
         public static GameManager GameManager { get { return instance.gameManager; } }
