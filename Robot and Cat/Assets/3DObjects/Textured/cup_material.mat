@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: smallPlant_mat
+  m_Name: cup_material
   m_Shader: {fileID: 4800000, guid: d9630e8aa2ed4484fa9571a8dc9d6054, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -39,7 +39,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 59dd8683b22f4fd4594bac4dd8391a71, type: 3}
+        m_Texture: {fileID: 2800000, guid: edba8dd9e1882a04cb797f9af50160f8, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
