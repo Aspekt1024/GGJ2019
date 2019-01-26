@@ -8,7 +8,7 @@ public class SceneLoad : MonoBehaviour {
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            SceneManager.LoadScene("Tom Scene 1", LoadSceneMode.Single);
+            SceneManager.LoadScene("MeowMeowCrash", LoadSceneMode.Single);
         }
     }
 }
