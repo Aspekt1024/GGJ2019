@@ -27,7 +27,7 @@ public class ScoreManager
     }
     public void Tick()
     {
-        Debug.Log(score);
+        
     }
 
     public void Track(GameObject gameObject)
@@ -41,7 +41,8 @@ public class ScoreManager
         else
         {
             scoreItems.Add(new ScoreItem(gameObject));
-            score += 50f;
+            score += 50;
+            Debug.Log(score);
         }
     }
 }
