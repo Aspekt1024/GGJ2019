@@ -21,7 +21,7 @@ namespace RobotCat
 
             instance = this;
             this.gameManager = gameManager;
-            score = new ScoreManager();
+            score = Object.FindObjectOfType<ScoreManager>();
             ui = Object.FindObjectOfType<UIManager>();
         }
 

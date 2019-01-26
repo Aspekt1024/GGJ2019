@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RobotCat.Objects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,7 @@ namespace RobotCat.Player
             if (body != null)
             {
                 body.velocity = GetComponentInParent<Cat>().transform.right * -SwipeForce;
+                body.GetComponent<GrabbableObject>()?.struckByCat();
             }
         }
     }

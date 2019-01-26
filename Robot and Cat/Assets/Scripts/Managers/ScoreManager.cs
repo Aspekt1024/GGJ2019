@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using RobotCat;
 using RobotCat.Player;
 using UnityEngine;
 
@@ -25,6 +26,9 @@ public class ScoreManager:MonoBehaviour
     public float excitementForFloor = 25.0f;
     public float excitementOnInitialHit = 350.0f;
     public float excitementDecreaseRate = 5.0f;
+    public float maxRateOfDecrease = 100.0f;
+    public float minRateOfdecrease = 5.0f;
+    public float accelerationOfDecrease = 10.0f;
     private bool excited = false;
 
 
@@ -35,6 +39,7 @@ public class ScoreManager:MonoBehaviour
         {
             excited = true;
             currentExcitement += excitementOnInitialHit;
+            excitementDecreaseRate = minRateOfdecrease;
         }
     }
 
@@ -42,16 +47,20 @@ public class ScoreManager:MonoBehaviour
     void Update()
     {
         if(excited)
-        { 
-        currentExcitement -= excitementDecreaseRate * Time.deltaTime;
-        currentExcitement = Mathf.Clamp(currentExcitement, 0.0f, maxExcitement);
-        if (currentExcitement < 0.01f)
         {
-            excited = false;
-            //End game state with the game manager
+            excitementDecreaseRate += Time.deltaTime * accelerationOfDecrease;
+            excitementDecreaseRate = Mathf.Clamp(excitementDecreaseRate, minRateOfdecrease, maxRateOfDecrease);
+            currentExcitement -= excitementDecreaseRate * Time.deltaTime;
+            currentExcitement = Mathf.Clamp(currentExcitement, 0.0f, maxExcitement);
+            if (currentExcitement < 0.01f)
+            {
+                excited = false;
+                //End game state with the game manager
+            }
+
         }
-            //Update UI Value
-        }
+
+        RCStatics.UI.SetExcitement(currentExcitement / maxExcitement);
     }
 
     public void battedObject()

@@ -22,16 +22,16 @@ namespace RobotCat.Objects
     {
         public void SpawnCup(SpawnLocation spawnLocation)
         {
-            GetComponent<MeshCollider>().enabled = true;
-            GetComponent<MeshRenderer>().enabled = true;
+            GetComponentInChildren<MeshCollider>().enabled = true;
+            GetComponentInChildren<MeshRenderer>().enabled = true;
             transform.position = spawnLocation.transform.position;
             resetCup();
         }
 
         public void DeactivateCup()
         {
-            GetComponent<MeshCollider>().enabled = false;
-            GetComponent<MeshRenderer>().enabled = false;
+            GetComponentInChildren<MeshCollider>().enabled = false;
+            GetComponentInChildren<MeshRenderer>().enabled = false;
 
         }
         //Has the cat pawed it?
