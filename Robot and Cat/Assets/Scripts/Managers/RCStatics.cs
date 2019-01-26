@@ -27,6 +27,7 @@ namespace RobotCat
         public void Tick()
         {
             phase.Tick();
+            score.Tick();
         }
 
         public static GameManager GameManager { get { return instance.gameManager; } }

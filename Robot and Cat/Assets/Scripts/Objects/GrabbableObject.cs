@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RobotCat.Player;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -30,6 +31,21 @@ namespace RobotCat.Objects
         {
             GetComponent<Rigidbody>().useGravity = false;
 
+        }
+
+        private void OnCollisionExit(Collision collision)
+        {
+            var c = collision.collider.gameObject.GetComponent<Cat>();
+            if (c == null)
+            {
+                c = collision.collider.GetComponentInParent<Cat>();
+            }
+
+            if (c != null)
+            {
+                Debug.Log("Touched by cat");
+                RCStatics.Score.Track(gameObject);
+            }
         }
     }
 }
