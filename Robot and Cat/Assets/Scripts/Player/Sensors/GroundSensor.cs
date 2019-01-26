@@ -11,10 +11,15 @@ namespace RobotCat.Player
     public class GroundSensor : ISensor
     {
         private Rigidbody body;
+        private Collider collider;
 
-        public GroundSensor(Rigidbody body)
+        private float timeLeftGround;
+        private const float LATE_JUMP_THRESHOLD = 0.4f;
+
+        public GroundSensor(Rigidbody body, Collider collider)
         {
             this.body = body;
+            this.collider = collider;
         }
 
         private enum States
@@ -33,38 +38,57 @@ namespace RobotCat.Player
             }
             else if (!hitGround && state == States.Grounded)
             {
+                timeLeftGround = Time.time;
                 state = States.NotGrounded;
             }
 
             DebugUI.SetText(state.ToString());
         }
 
-        public bool IsOnGround { get { return state == States.Grounded; } }
+        public bool IsOnGround { get { return state == States.Grounded || Time.time < timeLeftGround + LATE_JUMP_THRESHOLD; } }
 
         private float GetLowerExtent()
         {
-            Collider[] colliders = body.GetComponentsInChildren<Collider>();
-            float lowPoint = 0f;
-            foreach (var c in colliders)
-            {
-                if (c.bounds.extents.y > lowPoint)
-                {
-                    lowPoint = c.bounds.extents.y;
-                }
-            }
-
             const float threshold = 0.05f;
-            return lowPoint + threshold;
+            return collider.bounds.extents.y + threshold;
         }
 
         private bool GroundHitCheck()
         {
-            RaycastHit hit;
             Ray ray = new Ray(body.transform.position, Vector3.down);
-            float dist = GetLowerExtent();
-            bool success = Physics.Raycast(ray, out hit, dist, LayerUtil.GetLayerMask(Layers.Surface));
 
-            return success;
+            float dist = GetLowerExtent();
+
+            float xMin = -collider.bounds.extents.x;
+            float xMax = -collider.bounds.extents.x;
+            float yMin = -collider.bounds.extents.y;
+            float yMax = -collider.bounds.extents.y;
+
+            const int gridSplit = 3; // Must be odd for now
+
+            var pos = body.transform.position;
+
+            for (int x = -(gridSplit - 1) / 2; x < (gridSplit - 1) / 2; x++)
+            {
+                for (int y = -(gridSplit - 1) / 2; y < (gridSplit - 1) / 2; y++)
+                {
+                    float xPos = pos.x + x * collider.bounds.extents.x;
+                    float yPos = pos.y + y * collider.bounds.extents.y;
+
+                    if (Physics.Raycast(ray, dist, LayerUtil.GetLayerMask(Layers.Surface)))
+                    {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public void OnJump()
+        {
+            // we don't want to double jump
+            timeLeftGround = 0f;
         }
     }
 }

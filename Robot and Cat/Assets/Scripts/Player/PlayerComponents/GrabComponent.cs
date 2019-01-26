@@ -1,9 +1,4 @@
 ﻿using RobotCat.Objects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace RobotCat.Player
@@ -13,23 +8,30 @@ namespace RobotCat.Player
         public Transform ObjectHoldPositioner;
 
         private GrabbableObject currentHeld;
-        private PlacematComponent currentPlacemat = null;
+        private GrabbableObject currentFocus;
 
         private enum States
         {
             HoldingObject, EmptyHands
         }
-        private States state;
+        private States state = States.EmptyHands;
 
-        public void Start()
-        {
-            state = States.EmptyHands;
-        }
         private void Update()
         {
             switch (state)
             {
                 case States.HoldingObject:
+
+                    var placemat = GetPlacemat();
+                    if (placemat == null)
+                    {
+                        currentHeld.transform.position = ObjectHoldPositioner.position;
+                    }
+                    else
+                    {
+                        placemat.positionObject(currentHeld);
+                    }
+
                     if (Input.GetKeyDown(KeyCode.E))
                     {
                         DropObject();
@@ -38,7 +40,7 @@ namespace RobotCat.Player
                 case States.EmptyHands:
                     if (Input.GetKeyDown(KeyCode.E))
                     {
-                        CheckforObject();
+                        TryGrabObject();
                     }
                     break;
                 default:
@@ -49,16 +51,6 @@ namespace RobotCat.Player
             switch (state)
             {
                 case States.HoldingObject:
-                    UpdatePlacemat();
-                    currentHeld.gravityOff();
-                    if (currentPlacemat == null)
-                    {
-                        currentHeld.transform.position = ObjectHoldPositioner.position;
-                    }
-                    else
-                    {
-                        currentPlacemat.positionObject(currentHeld);
-                    }
                     break;
                 case States.EmptyHands:
                     CheckForGrabbable();
@@ -67,24 +59,18 @@ namespace RobotCat.Player
                     break;
             }
         }
+        
 
-        public void FixedUpdate()
-        {
-        }
-
-        private void UpdatePlacemat()
+        private PlacematComponent GetPlacemat()
         {
             Ray ray = new Ray(transform.position, transform.forward);
             RaycastHit hit;
             bool hitObject = Physics.Raycast(ray, out hit, 3f, LayerUtil.GetLayerMask(Layers.ObjectPlacemat));
             if (hitObject)
             {
-                currentPlacemat = hit.collider.gameObject.GetComponentInParent<PlacematComponent>();
+                return hit.collider.gameObject.GetComponentInParent<PlacematComponent>();
             }
-            else
-            {
-                currentPlacemat = null;
-            }
+            return null;
         }
 
         private void CheckForGrabbable()
@@ -95,7 +81,7 @@ namespace RobotCat.Player
             // TODO illuminate object
         }
 
-        private void CheckforObject()
+        private void TryGrabObject()
         {
             Ray ray = new Ray(transform.position, transform.forward);
             RaycastHit hit;
@@ -108,6 +94,7 @@ namespace RobotCat.Player
                 {
                     state = States.HoldingObject;
                     currentHeld = grabbable;
+                    currentHeld.gravityOff();
                 }
             }
         }
@@ -115,6 +102,8 @@ namespace RobotCat.Player
         private void DropObject()
         {
             currentHeld.gravityOn();
+            currentHeld.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            currentHeld.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             currentHeld = null;
             state = States.EmptyHands;
 

@@ -12,14 +12,15 @@ namespace RobotCat.Player
         private void Awake()
         {
             body = GetComponent<Rigidbody>();
-            groundSensor = new GroundSensor(body);
+            var collider = GetComponentInChildren<Collider>();
+            groundSensor = new GroundSensor(body, collider);
         }
 
         private void FixedUpdate()
         {
             groundSensor.Tick(Time.fixedDeltaTime);
 
-            if (Input.GetKeyDown(KeyCode.Space) && groundSensor.IsOnGround)
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.F)) && groundSensor.IsOnGround)
             {
                 Jump();
             }

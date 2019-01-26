@@ -30,7 +30,7 @@ namespace RobotCat.Player
             var sideVel = transform.right * hAxis;
 
             var vel = (forwardVel + sideVel).normalized * MoveSpeed;
-
+            
             body.velocity = new Vector3(vel.x, body.velocity.y, vel.z);
 
         }
