@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RobotCat.UI;
+using UnityEngine;
 
 namespace RobotCat
 {
@@ -8,6 +9,7 @@ namespace RobotCat
 
         private GameManager gameManager;
         private ScoreManager score;
+        private UIManager ui;
 
         public RCStatics(GameManager gameManager)
         {
@@ -20,6 +22,7 @@ namespace RobotCat
             instance = this;
             this.gameManager = gameManager;
             score = new ScoreManager();
+            ui = Object.FindObjectOfType<UIManager>();
         }
 
         public void Tick()
@@ -29,6 +32,7 @@ namespace RobotCat
 
         public static GameManager GameManager { get { return instance.gameManager; } }
         public static ScoreManager Score { get { return instance.score; } }
+        public static UIManager UI { get { return instance.ui; } }
 
     }
 }
