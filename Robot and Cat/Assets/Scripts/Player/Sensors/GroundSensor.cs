@@ -59,11 +59,6 @@ namespace RobotCat.Player
 
             float dist = GetLowerExtent();
 
-            float xMin = -collider.bounds.extents.x;
-            float xMax = -collider.bounds.extents.x;
-            float yMin = -collider.bounds.extents.y;
-            float yMax = -collider.bounds.extents.y;
-
             const int gridSplit = 3; // Must be odd for now
 
             var pos = body.transform.position;

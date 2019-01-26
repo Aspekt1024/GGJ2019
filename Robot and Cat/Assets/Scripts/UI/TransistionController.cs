@@ -11,8 +11,6 @@ namespace RobotCat
 
         public CanvasGroup canvasController;
 
-        public AudioSource themeSource;
-
         public float currentTime = 0.0f;
         public float timeToFade = 5.0f;
 
@@ -39,12 +37,12 @@ namespace RobotCat
 
             //Load sleepign scene
             SceneManager.LoadScene("Transmission'", LoadSceneMode.Single);
+
+            RCStatics.Audio.CueSleepTheme();
         }
 
         private IEnumerator transitionIn()
         {
-            themeSource.Play();
-            themeSource.loop = true;
             //Start the music maybe while increasing volume?
             currentTime = 0.0f;
             transistioning = true;
@@ -54,9 +52,9 @@ namespace RobotCat
                 currentTime += Time.deltaTime;
                 currentTime = Mathf.Min(currentTime, timeToFade);
                 canvasController.alpha = fadeCurve.Evaluate(1-(currentTime / timeToFade));
-                themeSource.volume = fadeCurve.Evaluate( (currentTime / timeToFade));
+                RCStatics.Audio.CueMainTheme();
 
-                    yield return null;
+                yield return null;
             }
             transistioning = false;
         }
@@ -80,7 +78,6 @@ namespace RobotCat
 
         public void gameOut()
         {
-            themeSource.loop = false;
             if(!transistioning)
             {
                 StartCoroutine(fadeOutEnumerator);

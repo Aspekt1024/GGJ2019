@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using RobotCat;
-using RobotCat.Player;
 using UnityEngine;
 
 public class ScoreManager:MonoBehaviour
@@ -57,7 +55,6 @@ public class ScoreManager:MonoBehaviour
             {
                 excited = false;
                 TransistionController.instance.gameOut();
-                //End game state with the game manager
             }
 
         }
