@@ -7,11 +7,11 @@ namespace RobotCat
 {
     public class CupManager : MonoBehaviour
     {
-        public CupManager instance = null;
+        public static CupManager instance = null;
 
         private List<GrabbableObject> potentialCups;
         public int cupsAtStartUp = 20;
-        public List<SpawnLocation> spawnLocations;
+        public SpawnLocation[] spawnLocations;
         public GrabbableObject cupPrefab;
         void Awake()
         {
@@ -21,9 +21,9 @@ namespace RobotCat
             }
             instance = this;
 
-            if (cupsAtStartUp > spawnLocations.Count)
+            if (cupsAtStartUp > spawnLocations.Length)
             {
-                cupsAtStartUp = spawnLocations.Count;
+                cupsAtStartUp = spawnLocations.Length;
             }
 
             potentialCups = new List<GrabbableObject>();
@@ -33,32 +33,44 @@ namespace RobotCat
                 cupHolder = GameObject.Instantiate<GrabbableObject>(cupPrefab);
                 potentialCups.Add(cupHolder);
             }
+            initiateAGame();
 
         }
 
         public void initiateAGame()
         {
-            bool[] possibleSpawnIndexs = new bool[spawnLocations.Count];
-            for(int i = 0; i< possibleSpawnIndexs.Length; i++)
+            int[] myList = new int[cupsAtStartUp];
+            for (int i = 0; i < cupsAtStartUp; i++)
             {
-                possibleSpawnIndexs[i] = false;
+                myList[i] = i;
             }
-            int indexOfSpawn;
-            bool spawnSuccesful;
-            for(int i = 0; i<cupsAtStartUp;i++)
+            
+            for (int i = 0; i < cupsAtStartUp; i++)
             {
-                spawnSuccesful = false;
-                while(!spawnSuccesful)
-                {
-                    indexOfSpawn = Mathf.FloorToInt(Random.Range(0.0f, cupsAtStartUp - 1));
-                    
-                }
+                int randIndex = Random.Range(0, cupsAtStartUp);
+                int temp = myList[i];
+                myList[i] = myList[randIndex];
+                myList[randIndex] = temp;
+            }
 
+            List<int> randomIndexs = new List<int>();
+            int spawnIndex;
+            for (int i = 0; i < cupsAtStartUp; i++)
+            {
+                spawnIndex = myList[i];
+                potentialCups.ToArray()[i].SpawnCup(spawnLocations[spawnIndex]);
             }
 
 
         }
 
+        public void endGame()
+        {
+            foreach(GrabbableObject a in potentialCups)
+            {
+                a.DeactivateCup();
+            }
+        }
 
     }
 }

@@ -23,7 +23,7 @@ namespace RobotCat.Objects
         {
             GetComponent<MeshCollider>().enabled = true;
             GetComponent<MeshRenderer>().enabled = true;
-            //Set the cup to the location of it's allocated spawn
+            transform.position = spawnLocation.transform.position;
             resetCup();
         }
 
