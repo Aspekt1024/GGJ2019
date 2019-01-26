@@ -28,6 +28,7 @@ public class ScoreManager:MonoBehaviour
     public float excitementDecreaseRate = 5.0f;
     public float maxRateOfDecrease = 100.0f;
     public float minRateOfdecrease = 5.0f;
+    public float excitedOnReBat = 5.0f;
     public float accelerationOfDecrease = 10.0f;
     private bool excited = false;
 
@@ -55,6 +56,7 @@ public class ScoreManager:MonoBehaviour
             if (currentExcitement < 0.01f)
             {
                 excited = false;
+                TransistionController.instance.gameOut();
                 //End game state with the game manager
             }
 
@@ -67,6 +69,12 @@ public class ScoreManager:MonoBehaviour
     {
         checkInitialCollide();
         currentExcitement += excitementForBat;
+    }
+
+    public void reBattedObject()
+    {
+        checkInitialCollide();
+        currentExcitement += excitedOnReBat;
     }
 
     public void collidedObject()
