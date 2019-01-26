@@ -1,48 +1,60 @@
-﻿using UnityEngine;
+﻿using System.Reflection;
+using System.Threading.Tasks;
+using UnityEngine;
 
 namespace RobotCat.Player
 {
     public class PawComponent : MonoBehaviour
     {
-        public Transform Paw;
+        public Animator LeftPawAnim;
+        public Animator RightPawAnim;
 
-        private Animator anim;
+        public float SwipeCooldown = 1.3f;
 
         private enum States
         {
             None, PawOut, Swiping
         }
-        private States state = States.None;
-
-        private void Awake()
-        {
-            anim = Paw.GetComponent<Animator>();
-        }
+        private States leftState = States.None;
+        private States rightState = States.None;
 
         private void Update()
         {
             if (Input.GetMouseButtonDown(0))
             {
-                PawOut();
+                PawLeft();
+            }
+            if (Input.GetMouseButtonDown(1))
+            {
+                PawRight();
             }
             
         }
 
-        private void PawOut()
+        private void PawRight()
         {
-            state = States.PawOut;
-            anim.Play("Swipe", 0, 0f);
+            if (leftState == States.Swiping) return;
+            leftState = States.Swiping;
+            RightPawAnim.Play("SwipeLeft", 0, 0f);
+            Task.Delay((int)(SwipeCooldown * 1000f)).ContinueWith(t => leftState = States.None);
         }
-        
+        private void PawLeft()
+        {
+            if (rightState == States.Swiping) return;
+            rightState = States.Swiping;
+            LeftPawAnim.Play("SwipeRight", 0, 0f);
+            Task.Delay((int)(SwipeCooldown * 1000f)).ContinueWith(t => rightState = States.None);
+        }
+
         private void PawIn()
         {
-            state = States.None;
+            leftState = States.None;
             // TODO animate
         }
 
         private void Swipe()
         {
-            state = States.Swiping;
+            leftState = States.Swiping;
         }
         
     }

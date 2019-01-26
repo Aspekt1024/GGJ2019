@@ -5,7 +5,7 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: PawAnimator
+  m_Name: RightPawAnimator
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -35,7 +35,7 @@ AnimatorStateTransition:
   m_IsExit: 0
   serializedVersion: 3
   m_TransitionDuration: 0
-  m_TransitionOffset: 0.041474547
+  m_TransitionOffset: 0
   m_ExitTime: 0
   m_HasExitTime: 1
   m_HasFixedDuration: 0
@@ -73,7 +73,7 @@ AnimatorState:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: Swipe
+  m_Name: SwipeLeft
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

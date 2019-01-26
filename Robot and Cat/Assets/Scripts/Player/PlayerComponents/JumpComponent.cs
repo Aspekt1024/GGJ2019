@@ -28,7 +28,7 @@ namespace RobotCat.Player
         {
             groundSensor.Tick(Time.fixedDeltaTime);
 
-            if (Input.GetKeyDown(KeyCode.Space) && groundSensor.IsOnGround)
+            if ((Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.C)) && groundSensor.IsOnGround)
             {
                 Jump();
             }

@@ -22,7 +22,7 @@ namespace RobotCat.Player
 
             if (body != null)
             {
-                body.velocity = GetComponentInParent<Cat>().transform.right * -SwipeForce;
+                body.velocity = GetComponentInParent<Cat>().transform.right * (name == "Right" ? -1 : 1) * SwipeForce;
                 body.GetComponent<GrabbableObject>()?.struckByCat();
             }
         }
