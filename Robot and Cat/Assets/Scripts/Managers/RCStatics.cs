@@ -1,4 +1,5 @@
-﻿using RobotCat.UI;
+﻿using RobotCat.Audio;
+using RobotCat.UI;
 using UnityEngine;
 
 namespace RobotCat
@@ -10,6 +11,7 @@ namespace RobotCat
         private GameManager gameManager;
         private ScoreManager score;
         private UIManager ui;
+        private MMCAudioManager audio;
 
         public RCStatics(GameManager gameManager)
         {
@@ -22,15 +24,13 @@ namespace RobotCat
             this.gameManager = gameManager;
             score = Object.FindObjectOfType<ScoreManager>();
             ui = Object.FindObjectOfType<UIManager>();
-        }
-
-        public void Tick()
-        {
+            audio = Object.FindObjectOfType<MMCAudioManager>();
         }
 
         public static GameManager GameManager { get { return instance.gameManager; } }
         public static ScoreManager Score { get { return instance.score; } }
         public static UIManager UI { get { return instance.ui; } }
+        public static MMCAudioManager Audio { get { return instance.audio; } }
 
     }
 }

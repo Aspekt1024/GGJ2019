@@ -22,8 +22,6 @@ namespace RobotCat
         
         private void Update()
         {
-            statics.Tick();
-
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 RCStatics.UI.ToggleMenu();
