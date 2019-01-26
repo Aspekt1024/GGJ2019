@@ -4,14 +4,13 @@ using UnityEngine;
 
 
 public class PhaseManager {
-
-    public Camera catCamera;
-    public Camera robotCamera;
-
-    private PlayerBase currentplayer;
-
+    private enum PossiblePhases
+    {
+        catPhase, robotPhase
+    }
     private Cat cat;
     private Robot robot;
+    private PossiblePhases currentPhase;
 
     public PhaseManager()
     {
@@ -20,26 +19,44 @@ public class PhaseManager {
 
         cat.gameObject.SetActive(true);
         robot.gameObject.SetActive(false);
-        currentplayer = cat;
+        LoadCatPhase();
     }
 
     public void Tick()
     {
-        if(Input.GetKeyDown(KeyCode.Z))
+
+
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            if (currentplayer is Cat)
-            {
-                currentplayer.gameObject.SetActive(false);
-                currentplayer = robot;
-            }
-            else if (currentplayer is Robot)
-            {
-                currentplayer.gameObject.SetActive(false);
-                currentplayer = cat;
-            }
-            currentplayer.gameObject.SetActive(true);
+            nextPhase();
         }
 
+    }
+    private void LoadCatPhase()
+    {
+        robot.gameObject.SetActive(false);
+        cat.gameObject.SetActive(true);
+        currentPhase = PossiblePhases.catPhase;
+    }
+
+    private void LoadRobotPhase()
+    {
+        cat.gameObject.SetActive(false);
+        robot.gameObject.SetActive(true);
+        currentPhase = PossiblePhases.robotPhase;
+    }
+
+    public void nextPhase()
+    {
+        if (currentPhase == PossiblePhases.catPhase)
+        {
+            LoadRobotPhase();
+
+        }
+        else
+        {
+            LoadCatPhase();
+        }
     }
 
 

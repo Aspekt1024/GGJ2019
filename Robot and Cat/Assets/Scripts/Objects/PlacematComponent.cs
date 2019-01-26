@@ -14,8 +14,8 @@ namespace RobotCat.Objects
 
         public void positionObject(GrabbableObject obj)
         {
-            obj.transform.position = itemLocation.transform.position;
             obj.transform.localRotation = Quaternion.identity;
+            obj.transform.position = itemLocation.transform.position;
         }
     }
 }
