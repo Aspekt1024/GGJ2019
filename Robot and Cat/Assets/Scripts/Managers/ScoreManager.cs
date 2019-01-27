@@ -29,6 +29,7 @@ public class ScoreManager:MonoBehaviour
     public float excitedOnReBat = 5.0f;
     public float accelerationOfDecrease = 10.0f;
     private bool excited = false;
+    public float amountToReset = 5.0f;
 
 
 
@@ -66,6 +67,7 @@ public class ScoreManager:MonoBehaviour
     {
         checkInitialCollide();
         currentExcitement += excitementForBat;
+        excitementDecreaseRate -= amountToReset;
     }
 
     public void reBattedObject()
@@ -78,12 +80,14 @@ public class ScoreManager:MonoBehaviour
     {
         checkInitialCollide();
         currentExcitement += excitementForCollide;
+        excitementDecreaseRate -= amountToReset;
     }
 
     public void flooredObject()
     {
         checkInitialCollide();
         currentExcitement += excitementForFloor;
+        excitementDecreaseRate -= amountToReset;
     }
     
 
