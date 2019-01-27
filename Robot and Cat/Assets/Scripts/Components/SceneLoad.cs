@@ -2,13 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using RobotCat;
 public class SceneLoad : MonoBehaviour {
     void Update()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if(Input.anyKeyDown)
         {
-            SceneManager.LoadScene("MeowMeowCrash", LoadSceneMode.Single);
+            Debug.Log("ADSFASf");
+            Debug.Log(MainMenuTransistion.instance.transistioning);
+        }
+        if ((Input.anyKeyDown) && (!MainMenuTransistion.instance.transistioning))
+        {
+            MainMenuTransistion.instance.gameOut();
         }
     }
 }

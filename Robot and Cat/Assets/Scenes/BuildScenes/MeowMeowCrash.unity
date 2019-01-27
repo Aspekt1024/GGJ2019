@@ -330,29 +330,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 63
       objectReference: {fileID: 0}
-    - target: {fileID: 4914043566096892, guid: 5708a9d492641ec4cb567ec6e5e0d302, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 66.83501
-      objectReference: {fileID: 0}
-    - target: {fileID: 4914043566096892, guid: 5708a9d492641ec4cb567ec6e5e0d302, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -18.763
-      objectReference: {fileID: 0}
-    - target: {fileID: 4914043566096892, guid: 5708a9d492641ec4cb567ec6e5e0d302, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: -140.58801
-      objectReference: {fileID: 0}
     - target: {fileID: 1921301940661500, guid: 5708a9d492641ec4cb567ec6e5e0d302, type: 2}
       propertyPath: m_Name
       value: Book (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 4914043566096892, guid: 5708a9d492641ec4cb567ec6e5e0d302, type: 2}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4914043566096892, guid: 5708a9d492641ec4cb567ec6e5e0d302, type: 2}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5708a9d492641ec4cb567ec6e5e0d302, type: 2}
@@ -4227,6 +4207,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 23643950375438324, guid: df7ccd42519d2734587725a3b16d9b84,
+        type: 2}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8e3bf52041dd3034fbc7823afa7c01b8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df7ccd42519d2734587725a3b16d9b84, type: 2}
   m_IsPrefabAsset: 0
@@ -8996,7 +8981,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasController: {fileID: 839568594}
   currentTime: 0
-  timeToFade: 2
+  timeToFade: 1
   fadeCurve:
     serializedVersion: 2
     m_Curve:
