@@ -41,6 +41,8 @@ namespace RobotCat
             
         }
 
+      
+
         private IEnumerator transitionIn()
         {
             //Start the music maybe while increasing volume?
@@ -82,6 +84,10 @@ namespace RobotCat
             if(!transistioning)
             {
                 StartCoroutine(fadeOutEnumerator);
+            }
+            else
+            {
+                currentTime = timeToFade;
             }
 
         }

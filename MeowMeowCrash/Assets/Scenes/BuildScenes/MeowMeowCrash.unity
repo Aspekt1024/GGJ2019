@@ -5713,6 +5713,26 @@ Prefab:
       propertyPath: m_AnchoredPosition.x
       value: 144.38
       objectReference: {fileID: 0}
+    - target: {fileID: 224501509074429662, guid: 87a6eb69c0da97b4687a13f55d826764,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 224738590650055660, guid: 87a6eb69c0da97b4687a13f55d826764,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 224774086153474880, guid: 87a6eb69c0da97b4687a13f55d826764,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224934266458718404, guid: 87a6eb69c0da97b4687a13f55d826764,
+        type: 2}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 87a6eb69c0da97b4687a13f55d826764, type: 2}
   m_IsPrefabAsset: 0
@@ -8062,6 +8082,7 @@ MonoBehaviour:
   minRateOfdecrease: 10
   excitedOnReBat: 2
   accelerationOfDecrease: 20
+  amountToReset: 5
   score: 0
 --- !u!114 &2094674393
 MonoBehaviour:
