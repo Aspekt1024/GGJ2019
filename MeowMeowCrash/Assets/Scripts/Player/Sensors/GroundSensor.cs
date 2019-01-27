@@ -1,9 +1,4 @@
 ﻿using RobotCat.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace RobotCat.Player
@@ -13,9 +8,12 @@ namespace RobotCat.Player
         private Rigidbody body;
         private Collider collider;
 
-        private bool recentlyJumped;
         private float timeLeftGround;
         private const float LATE_JUMP_THRESHOLD = 0.4f;
+
+        // TODO manage in jump component
+        private const float JUMP_COOLDOWN_TIMER = 0.5f;
+        private float timeJumped;
 
         public GroundSensor(Rigidbody body, Collider collider)
         {
@@ -54,7 +52,7 @@ namespace RobotCat.Player
                 {
                     return true;
                 }
-                else if (Time.time < timeLeftGround + LATE_JUMP_THRESHOLD && !recentlyJumped)
+                else if (Time.time < timeLeftGround + LATE_JUMP_THRESHOLD && Time.time > timeJumped + JUMP_COOLDOWN_TIMER)
                 {
                     return true;
                 }
@@ -87,7 +85,11 @@ namespace RobotCat.Player
                     rayPos.z = pos.z + y * collider.bounds.extents.y;
                     ray = new Ray(rayPos, Vector3.down);
 
-                    if (Physics.Raycast(ray, dist, LayerUtil.GetLayerMask(Layers.Surface)))
+                    Layers[] layers = new Layers[]
+                    {
+                        Layers.Surface, Layers.GrabbableObject
+                    };
+                    if (Physics.Raycast(ray, dist, LayerUtil.GetLayerMask(layers)))
                     {
                         return true;
                     }
@@ -99,9 +101,7 @@ namespace RobotCat.Player
 
         public void OnJump()
         {
-            // we don't want to double jump
-            recentlyJumped = true;
-            Task.Delay(500).ContinueWith(t => recentlyJumped = false);
+            timeJumped = Time.time;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using RobotCat.Audio;
-using System.Reflection;
-using System.Threading.Tasks;
+using System.Collections;
 using UnityEngine;
 
 namespace RobotCat.Player
@@ -38,7 +37,7 @@ namespace RobotCat.Player
             if (leftState == States.Swiping) return;
             leftState = States.Swiping;
             RightPawAnim.Play("SwipeLeft", 0, 0f);
-            Task.Delay((int)(SwipeCooldown * 1000f)).ContinueWith(t => leftState = States.None);
+            StartCoroutine(DelayAfterSwipe(SwipeCooldown, true));
 
             RCStatics.SFX.PlayRandom(SFX.PawSwipe);
         }
@@ -47,7 +46,7 @@ namespace RobotCat.Player
             if (rightState == States.Swiping) return;
             rightState = States.Swiping;
             LeftPawAnim.Play("SwipeRight", 0, 0f);
-            Task.Delay((int)(SwipeCooldown * 1000f)).ContinueWith(t => rightState = States.None);
+            StartCoroutine(DelayAfterSwipe(SwipeCooldown, false));
 
             RCStatics.SFX.PlayRandom(SFX.PawSwipe);
         }
@@ -63,5 +62,18 @@ namespace RobotCat.Player
             leftState = States.Swiping;
         }
         
+        private IEnumerator DelayAfterSwipe(float delay, bool isLeftPaw)
+        {
+            yield return new WaitForSeconds(delay);
+
+            if (isLeftPaw)
+            {
+                leftState = States.None;
+            }
+            else
+            {
+                rightState = States.None;
+            }
+        }
     }
 }

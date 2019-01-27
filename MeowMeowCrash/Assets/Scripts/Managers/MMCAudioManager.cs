@@ -1,6 +1,4 @@
-﻿
-using System.Collections;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace RobotCat.Audio
@@ -73,8 +71,14 @@ namespace RobotCat.Audio
                 currentSource.clip = GetNextClip();
                 clipQueued = true;
                 currentSource.PlayScheduled(AudioSettings.dspTime + timeLeft);
-                Task.Delay((int)(timeLeft * 1000)).ContinueWith(t => clipQueued = false);
+                StartCoroutine(ClipMarkedAsQueuedDelay(timeLeft));
             }
+        }
+
+        private IEnumerator ClipMarkedAsQueuedDelay(float delay)
+        {
+            yield return new WaitForSecondsRealtime(delay);
+            clipQueued = false;
         }
 
         private AudioClip GetNextClip()
