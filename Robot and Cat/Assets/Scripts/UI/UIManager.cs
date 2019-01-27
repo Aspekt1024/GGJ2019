@@ -10,6 +10,8 @@ namespace RobotCat.UI
 {
     public class UIManager : MonoBehaviour
     {
+        public Color maxexcitement;
+        public Color minexcitement;
         public Image ExcitementBar;
         public MenuScripts Menu;
 
