@@ -1,20 +1,12 @@
-﻿using RobotCat.Player;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RobotCat.Audio;
+using RobotCat.Player;
 using UnityEngine;
 
 namespace RobotCat.Objects
 {
-
-
-
-
     public enum GrabbableObjects
     {
-        Cup,
+        Cup, Book, 
     }
 
 
@@ -73,23 +65,7 @@ namespace RobotCat.Objects
             }
             struck = true;
         }
-
-        public void collidedWithFloor()
-        {
-            //Call score manager
-            if(!hitTheFloor)
-            {
-                ScoreManager.instance.flooredObject();
-            }
-            hitTheFloor = true;
-        }
-
-
-        private void Update()
-        {
-
-        }
-
+        
         public GrabbableObjects ObjectType;
         public void gravityOn()
         {
@@ -104,9 +80,53 @@ namespace RobotCat.Objects
 
         private void OnCollisionEnter(Collision collision)
         {
-            if(collision.collider.gameObject.GetComponent<Floors>())
+
+            if (RCStatics.SFX.SFXDelay > Time.timeSinceLevelLoad) return;
+
+            if (ObjectType == GrabbableObjects.Cup)
             {
-                collidedWithFloor();
+                if (collision.collider.GetComponent<Floors>())
+                {
+
+                    if (!hitTheFloor)
+                    {
+                        ScoreManager.instance.flooredObject();
+                    }
+                    hitTheFloor = true;
+                    if (Mathf.Abs(GetComponent<Rigidbody>().velocity.y) > 0.1f)
+                    {
+                        RCStatics.SFX.PlayRandom(SFX.CupImpactFloor);
+                    }
+                }
+                else if (collision.collider.tag == "Wall")
+                {
+                    RCStatics.SFX.PlayRandom(SFX.CupImpactWall);
+                }
+                else if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Surface"))
+                {
+                    RCStatics.SFX.PlayRandom(SFX.CupTable);
+                }
+                else if (collision.collider.GetComponent<GrabbableObject>()?.ObjectType == GrabbableObjects.Cup)
+                {
+                    if (GetComponent<Rigidbody>().velocity.magnitude > 0.5f)
+                    {
+                        RCStatics.SFX.PlayRandom(SFX.CupImpactMug);
+                    }
+                }
+            }
+            else
+            {
+
+                if (collision.collider.GetComponent<Floors>())
+                {
+
+                    if (!hitTheFloor)
+                    {
+                        ScoreManager.instance.flooredObject();
+                    }
+                    hitTheFloor = true;
+                }
+                RCStatics.SFX.PlayRandom(SFX.PawCup);
             }
         }
 
@@ -123,5 +143,6 @@ namespace RobotCat.Objects
                 collidedWith();
             }
         }
+        
     }
 }

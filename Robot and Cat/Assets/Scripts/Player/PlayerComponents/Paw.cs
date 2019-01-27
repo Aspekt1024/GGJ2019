@@ -1,4 +1,5 @@
-﻿using RobotCat.Objects;
+﻿using RobotCat.Audio;
+using RobotCat.Objects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,7 @@ namespace RobotCat.Player
             {
                 body.velocity = GetComponentInParent<Cat>().transform.right * (name == "Right" ? -1 : 1) * SwipeForce;
                 body.GetComponent<GrabbableObject>()?.struckByCat();
+                RCStatics.SFX.PlayRandom(SFX.PawCup);
             }
         }
     }
