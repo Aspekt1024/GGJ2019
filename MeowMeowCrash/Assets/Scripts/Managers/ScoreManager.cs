@@ -52,7 +52,7 @@ public class ScoreManager:MonoBehaviour
             excitementDecreaseRate = Mathf.Clamp(excitementDecreaseRate, minRateOfdecrease, maxRateOfDecrease);
             currentExcitement -= excitementDecreaseRate * Time.deltaTime;
             currentExcitement = Mathf.Clamp(currentExcitement, 0.0f, maxExcitement);
-            if (currentExcitement < 0.01f)
+            if (currentExcitement < 0.01f && !RCStatics.Settings.EndlessMode)
             {
                 excited = false;
                 TransistionController.instance.gameOut();
@@ -114,10 +114,6 @@ public class ScoreManager:MonoBehaviour
     public ScoreManager()
     {
         scoreItems = new List<ScoreItem>();
-    }
-    public void Tick()
-    {
-        
     }
 
     public void Track(GameObject gameObject)

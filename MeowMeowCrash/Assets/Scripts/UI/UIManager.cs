@@ -21,15 +21,7 @@ namespace RobotCat.UI
 
         private float maxExcitementRate;
         private float currentRate;
-
-        private CreditsMenuScript creditsMenu;
-
-        private void Awake()
-        {
-            creditsMenu = FindObjectOfType<CreditsMenuScript>();
-            creditsMenu?.Hide();
-        }
-
+        
         public void SetExcitement(float value)
         {
             currentRate = ScoreManager.instance.excitementDecreaseRate;
@@ -54,16 +46,6 @@ namespace RobotCat.UI
         public void HideMenu()
         {
             Menu.Hide();
-        }
-
-        public void ShowCredits()
-        {
-            creditsMenu.Show();
-        }
-
-        public void HideCredits()
-        {
-            creditsMenu.Hide();
         }
     }
 }

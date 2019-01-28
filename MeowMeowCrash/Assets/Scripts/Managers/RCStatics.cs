@@ -13,6 +13,7 @@ namespace RobotCat
         private UIManager ui;
         private MMCAudioManager audio;
         private SFXManager sfx;
+        private SettingsManager settings;
 
         public RCStatics(GameManager gameManager)
         {
@@ -28,16 +29,19 @@ namespace RobotCat
             sfx = Object.FindObjectOfType<SFXManager>();
         }
 
+        // DontDestroyOnLoad objects go here
         public void OnStart()
         {
             audio = Object.FindObjectOfType<MMCAudioManager>();
+            settings = Object.FindObjectOfType<SettingsManager>();
         }
 
-        public static GameManager GameManager { get { return instance.gameManager; } }
-        public static ScoreManager Score { get { return instance.score; } }
-        public static UIManager UI { get { return instance.ui; } }
-        public static MMCAudioManager Audio { get { return instance.audio; } }
-        public static SFXManager SFX { get { return instance.sfx; } }
+        public static GameManager GameManager { get { return instance?.gameManager; } }
+        public static ScoreManager Score { get { return instance?.score; } }
+        public static UIManager UI { get { return instance?.ui; } }
+        public static MMCAudioManager Audio { get { return instance?.audio; } }
+        public static SFXManager SFX { get { return instance?.sfx; } }
+        public static SettingsManager Settings { get { return instance?.settings; } }
 
     }
 }

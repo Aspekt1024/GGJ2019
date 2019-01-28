@@ -5,8 +5,6 @@ namespace RobotCat.Player
     public class RotationComponent : MonoBehaviour
     {
         [SerializeField]
-        public float sensitivity = 5.0f;
-        [SerializeField]
         public float smoothing = 2.0f;
         // the chacter is the capsule
         public GameObject character;
@@ -26,6 +24,8 @@ namespace RobotCat.Player
         void Update()
         {
             if (RCStatics.GameManager.IsInMenu) return;
+
+            float sensitivity = RCStatics.Settings.Sensitivity;
 
             // md is mosue delta
             var md = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));

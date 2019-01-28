@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace RobotCat.UI
 {
     public class MenuScripts : MonoBehaviour
     {
-        public CanvasGroup buttons;
-        private CanvasGroup canvasGroup;
+        public Slider SensitivitySlider;
+        public Toggle EndlessModeToggle;
 
+        public CanvasGroup MainScreenCanvas;
+        public CanvasGroup CreditsScreenCanvas;
+
+        private CanvasGroup canvasGroup;
+        
         private enum States
         {
             Hidden, Visible
@@ -16,7 +22,14 @@ namespace RobotCat.UI
         private void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
+            HideCreditsPressed();
+            if (RCStatics.Settings != null)
+            {
+                SensitivitySlider.value = RCStatics.Settings.GetMouseSensitivityFactor();
+                EndlessModeToggle.isOn = RCStatics.Settings.EndlessMode;
+            }
         }
+
 
         public void ExitGamePressed()
         {
@@ -25,14 +38,14 @@ namespace RobotCat.UI
 
         public void ShowCreditsPressed()
         {
-            RCStatics.UI.ShowCredits();
-            HideCanvas(buttons);
+            ShowCanvas(CreditsScreenCanvas);
+            HideCanvas(MainScreenCanvas);
         }
 
         public void HideCreditsPressed()
         {
-            RCStatics.UI.HideCredits();
-            ShowCanvas(buttons);
+            HideCanvas(CreditsScreenCanvas);
+            ShowCanvas(MainScreenCanvas);
         }
 
         public void ReturnToGamePressed()
@@ -80,6 +93,16 @@ namespace RobotCat.UI
         {
             canvas.interactable = true;
             canvas.alpha = 1f;
+        }
+
+        public void SensitivityChanged()
+        {
+            RCStatics.Settings.SetSensitivity(SensitivitySlider.value);
+        }
+
+        public void EndlessModeChanged()
+        {
+            RCStatics.Settings.EndlessMode = EndlessModeToggle.isOn;
         }
     }
 }
