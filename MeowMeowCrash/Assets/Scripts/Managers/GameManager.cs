@@ -27,7 +27,7 @@ namespace RobotCat
         
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Tab))
             {
                 if (state == States.Menu)
                 {

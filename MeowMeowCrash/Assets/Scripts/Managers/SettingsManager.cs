@@ -4,12 +4,12 @@ namespace RobotCat
 {
     public class SettingsManager : MonoBehaviour
     {
-        public float MouseSensitivityMin = 0.5f;
+        public float MouseSensitivityMin = 0.3f;
         public float MouseSensitivityMax = 10f;
 
-        public bool EndlessMode = false;
+        public bool EndlessMode = true;
 
-        [SerializeField] private float mouseSensitivityFactor = 0.5f;
+        [SerializeField] private float mouseSensitivityFactor = 0.3f;
 
         private static SettingsManager instance;
 
@@ -22,7 +22,7 @@ namespace RobotCat
                 return;
             }
 
-            Object.DontDestroyOnLoad(this);
+            DontDestroyOnLoad(this);
         }
 
         /// <summary>
