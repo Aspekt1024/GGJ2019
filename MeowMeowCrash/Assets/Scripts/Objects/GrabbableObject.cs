@@ -47,7 +47,7 @@ namespace RobotCat.Objects
             //Call the score manager
             if(!collided)
             {
-                ScoreManager.instance.collidedObject();
+                ScoreManager.instance.CollidedObject();
             }
             collided = true;
         }
@@ -57,11 +57,11 @@ namespace RobotCat.Objects
             //call score manager
             if(!struck)
             {
-                ScoreManager.instance.battedObject();
+                ScoreManager.instance.BattedObject();
             }
             else
             {
-                ScoreManager.instance.reBattedObject();
+                ScoreManager.instance.ReBattedObject();
             }
             struck = true;
         }
@@ -90,7 +90,7 @@ namespace RobotCat.Objects
 
                     if (!hitTheFloor)
                     {
-                        ScoreManager.instance.flooredObject();
+                        ScoreManager.instance.FlooredObject();
                     }
                     hitTheFloor = true;
                     if (Mathf.Abs(GetComponent<Rigidbody>().velocity.y) > 0.1f)
@@ -122,7 +122,7 @@ namespace RobotCat.Objects
 
                     if (!hitTheFloor)
                     {
-                        ScoreManager.instance.flooredObject();
+                        ScoreManager.instance.FlooredObject();
                     }
                     hitTheFloor = true;
                 }

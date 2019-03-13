@@ -19,17 +19,17 @@ namespace RobotCat.UI
         }
         private States state;
 
-        private void Awake()
+        private void Start()
         {
             canvasGroup = GetComponent<CanvasGroup>();
             HideCreditsPressed();
-            if (RCStatics.Settings != null)
-            {
-                SensitivitySlider.value = RCStatics.Settings.GetMouseSensitivityFactor();
-                EndlessModeToggle.isOn = RCStatics.Settings.EndlessMode;
-            }
         }
 
+        public void InitializeValues(SettingsManager settings)
+        {
+            SensitivitySlider.value = settings.GetMouseSensitivityFactor();
+            EndlessModeToggle.isOn = settings.EndlessMode;
+        }
 
         public void ExitGamePressed()
         {
@@ -97,11 +97,13 @@ namespace RobotCat.UI
 
         public void SensitivityChanged()
         {
+            if (RCStatics.Settings == null) return;
             RCStatics.Settings.SetSensitivity(SensitivitySlider.value);
         }
 
         public void EndlessModeChanged()
         {
+            if (RCStatics.Settings == null) return;
             RCStatics.Settings.EndlessMode = EndlessModeToggle.isOn;
         }
     }

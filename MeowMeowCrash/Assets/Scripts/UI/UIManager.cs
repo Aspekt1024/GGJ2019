@@ -1,41 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace RobotCat.UI
 {
     public class UIManager : MonoBehaviour
     {
+        // TODO these belong in the excitementBar
         public Color maxexcitement;
         public Color minexcitement;
-        public Image ExcitementBar;
         public MenuScripts Menu;
-
-        private float r;
-        private float g;
-        private float b;
-
+        public ScoreUI Score;
+        public ExcitementBar ExcitementBar;
+        
         private float maxExcitementRate;
         private float currentRate;
         
         public void SetExcitement(float value)
         {
-            currentRate = ScoreManager.instance.excitementDecreaseRate;
-            maxExcitementRate = ScoreManager.instance.maxRateOfDecrease;
+            // TODO this doesn't belong in the UI and should be passed as a ratio
+            currentRate = ScoreManager.instance.ExcitementDecreaseRate;
+            maxExcitementRate = ScoreManager.instance.MaxRateOfDecrease;
 
-            r = Mathf.Lerp(minexcitement.r, maxexcitement.r,1 - currentRate / maxExcitementRate);
-
-            g = Mathf.Lerp(minexcitement.g, maxexcitement.g, 1- currentRate / maxExcitementRate);
-
-            b = Mathf.Lerp(minexcitement.b, maxexcitement.b, 1- currentRate / maxExcitementRate);
-
-            ExcitementBar.color = new Color(r, g, b, ExcitementBar.color.a);
-
-            ExcitementBar.fillAmount = value;
+            var col = Color.Lerp(minexcitement, maxexcitement, 1 - currentRate / maxExcitementRate);
+            ExcitementBar.SetValue(value, col);
         }
 
         public void ToggleMenu()

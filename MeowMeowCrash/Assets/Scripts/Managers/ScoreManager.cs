@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using RobotCat;
+﻿using RobotCat;
 using UnityEngine;
 
 public class ScoreManager:MonoBehaviour
 {
-
     public static ScoreManager instance = null;
 
     private void Awake()
@@ -17,21 +14,24 @@ public class ScoreManager:MonoBehaviour
         instance = this;
     }
 
-    public float maxExcitement = 1000.0f;
-    public float currentExcitement = 0.0f;
-    public float excitementForCollide = 50.0f;
-    public float excitementForBat = 100.0f;
-    public float excitementForFloor = 25.0f;
-    public float excitementOnInitialHit = 350.0f;
-    public float excitementDecreaseRate = 5.0f;
-    public float maxRateOfDecrease = 100.0f;
-    public float minRateOfdecrease = 5.0f;
-    public float excitedOnReBat = 5.0f;
-    public float accelerationOfDecrease = 10.0f;
+    public float MaxRateOfDecrease = 125f;
+    public float ExcitementDecreaseRate = 10f;
+
+    [SerializeField] private float maxExcitement = 1000.0f;
+    [SerializeField] private float minRateOfdecrease = 5.0f;
+    [SerializeField] private float accelerationOfDecrease = 10.0f;
+    [SerializeField] private float amountToReset = 5.0f;
+
+    [SerializeField] private float excitedOnReBat = 5.0f;
+    [SerializeField] private float excitementForBat = 100.0f;
+    [SerializeField] private float excitementForCollide = 50.0f;
+    [SerializeField] private float excitementForFloor = 25.0f;
+    [SerializeField] private float excitementOnInitialHit = 350.0f;
+
+    private float currentExcitement = 0.0f;
     private bool excited = false;
-    public float amountToReset = 5.0f;
 
-
+    private int score = 0;
 
     public void checkInitialCollide()
     {
@@ -39,97 +39,73 @@ public class ScoreManager:MonoBehaviour
         {
             excited = true;
             currentExcitement += excitementOnInitialHit;
-            excitementDecreaseRate = minRateOfdecrease;
+            ExcitementDecreaseRate = minRateOfdecrease;
         }
     }
 
+    private void Start()
+    {
+        RCStatics.UI.Score.SetScore(score);
+        RCStatics.UI.SetExcitement(0);
+    }
 
     void Update()
     {
-        if(excited)
-        {
-            excitementDecreaseRate += Time.deltaTime * accelerationOfDecrease;
-            excitementDecreaseRate = Mathf.Clamp(excitementDecreaseRate, minRateOfdecrease, maxRateOfDecrease);
-            currentExcitement -= excitementDecreaseRate * Time.deltaTime;
-            currentExcitement = Mathf.Clamp(currentExcitement, 0.0f, maxExcitement);
-            if (currentExcitement < 0.01f && !RCStatics.Settings.EndlessMode)
-            {
-                excited = false;
-                TransistionController.instance.gameOut();
-            }
+        if (!excited) return;
 
+        ExcitementDecreaseRate += Time.deltaTime * accelerationOfDecrease;
+        ExcitementDecreaseRate = Mathf.Clamp(ExcitementDecreaseRate, minRateOfdecrease, MaxRateOfDecrease);
+        currentExcitement -= ExcitementDecreaseRate * Time.deltaTime;
+        currentExcitement = Mathf.Clamp(currentExcitement, 0.0f, maxExcitement);
+
+        if (currentExcitement < 0.01f && !RCStatics.Settings.EndlessMode)
+        {
+            excited = false;
+            TransistionController.instance.gameOut();
         }
 
         RCStatics.UI.SetExcitement(currentExcitement / maxExcitement);
+        // TODO play meow sounds based on excitement?
     }
 
-    public void battedObject()
+    public void BattedObject()
     {
         checkInitialCollide();
         currentExcitement += excitementForBat;
-        excitementDecreaseRate -= amountToReset;
+        ExcitementDecreaseRate -= amountToReset;
+
+        AddToScore((int)excitementForBat);
     }
 
-    public void reBattedObject()
+    public void ReBattedObject()
     {
         checkInitialCollide();
         currentExcitement += excitedOnReBat;
+
+        AddToScore((int)excitedOnReBat);
     }
 
-    public void collidedObject()
+    public void CollidedObject()
     {
         checkInitialCollide();
-        currentExcitement += excitementForCollide;
-        excitementDecreaseRate -= amountToReset;
+        currentExcitement += excitementForBat;
+        ExcitementDecreaseRate -= amountToReset;
+
+        AddToScore((int)excitementForBat);
     }
 
-    public void flooredObject()
+    public void FlooredObject()
     {
         checkInitialCollide();
-        currentExcitement += excitementForFloor;
-        excitementDecreaseRate -= amountToReset;
-    }
-    
+        currentExcitement += excitementForBat;
+        ExcitementDecreaseRate -= amountToReset;
 
-
-
-    private struct ScoreItem
-    {
-        public GameObject obj;
-        public Vector3 initialPos;
-        public int timesTracked;
-        public ScoreItem(GameObject gameobj)
-        {
-            obj = gameobj;
-            initialPos = gameobj.transform.position;
-            timesTracked = 0;
-        }
+        AddToScore((int)excitementForBat);
     }
 
-
-
-
-    public float score;
-    private List<ScoreItem> scoreItems;
-    public ScoreManager()
+    private void AddToScore(int points)
     {
-        scoreItems = new List<ScoreItem>();
-    }
-
-    public void Track(GameObject gameObject)
-    {
-        ScoreItem[] items = (ScoreItem[])scoreItems.Where(x => x.obj.Equals(gameObject)).ToArray();
-        if (items.Length > 0)
-        {
-            // already in the list
-            items[0].timesTracked++;
-        }
-        else
-        {
-            scoreItems.Add(new ScoreItem(gameObject));
-            score += 50;
-            Debug.Log(score);
-        }
+        score += points;
+        RCStatics.UI.Score.SetScore(score);
     }
 }
-

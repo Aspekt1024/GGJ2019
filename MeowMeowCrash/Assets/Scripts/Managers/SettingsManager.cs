@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using RobotCat.UI;
+using UnityEngine;
 
 namespace RobotCat
 {
@@ -22,6 +23,7 @@ namespace RobotCat
                 return;
             }
 
+            FindObjectOfType<MenuScripts>().InitializeValues(this);
             DontDestroyOnLoad(this);
         }
 
@@ -33,7 +35,7 @@ namespace RobotCat
             get
             {
                 float sensitivity = Mathf.Lerp(MouseSensitivityMin, MouseSensitivityMax, mouseSensitivityFactor);
-#if WEB_GL
+#if UNITY_WEBGL
                 sensitivity *= 0.5f;
 #endif
                 return sensitivity;
