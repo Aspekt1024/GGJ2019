@@ -40,6 +40,13 @@ namespace RobotCat
             }
         }
 
+        public void GameOver()
+        {
+            RCStatics.Data.AddScore("You (yes you!)", RCStatics.Score.GetScore());
+            RCStatics.Data.SaveData();
+            TransistionController.instance.gameOut();
+        }
+
         public void ShowMenu()
         {
             state = States.Menu;

@@ -11,6 +11,7 @@ namespace RobotCat.UI
         public MenuScripts Menu;
         public ScoreUI Score;
         public ExcitementBar ExcitementBar;
+        public HighScoreUI HighScore;
         
         private float maxExcitementRate;
         private float currentRate;

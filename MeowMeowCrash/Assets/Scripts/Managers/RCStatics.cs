@@ -14,6 +14,7 @@ namespace RobotCat
         private MMCAudioManager audio;
         private SFXManager sfx;
         private SettingsManager settings;
+        private DataManager data;
 
         public RCStatics(GameManager gameManager)
         {
@@ -34,6 +35,7 @@ namespace RobotCat
         {
             audio = Object.FindObjectOfType<MMCAudioManager>();
             settings = Object.FindObjectOfType<SettingsManager>();
+            data = Object.FindObjectOfType<DataManager>();
         }
 
         public static GameManager GameManager { get { return instance?.gameManager; } }
@@ -42,6 +44,7 @@ namespace RobotCat
         public static MMCAudioManager Audio { get { return instance?.audio; } }
         public static SFXManager SFX { get { return instance?.sfx; } }
         public static SettingsManager Settings { get { return instance?.settings; } }
+        public static DataManager Data { get { return instance?.data; } }
 
     }
 }

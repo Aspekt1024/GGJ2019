@@ -61,11 +61,16 @@ public class ScoreManager:MonoBehaviour
         if (currentExcitement < 0.01f && !RCStatics.Settings.EndlessMode)
         {
             excited = false;
-            TransistionController.instance.gameOut();
+            RCStatics.GameManager.GameOver();
         }
 
         RCStatics.UI.SetExcitement(currentExcitement / maxExcitement);
         // TODO play meow sounds based on excitement?
+    }
+
+    public int GetScore()
+    {
+        return score;
     }
 
     public void BattedObject()

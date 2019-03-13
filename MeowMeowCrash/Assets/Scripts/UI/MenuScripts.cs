@@ -10,6 +10,7 @@ namespace RobotCat.UI
 
         public CanvasGroup MainScreenCanvas;
         public CanvasGroup CreditsScreenCanvas;
+        public CanvasGroup HighScoreCanvas;
 
         private CanvasGroup canvasGroup;
         
@@ -40,11 +41,28 @@ namespace RobotCat.UI
         {
             ShowCanvas(CreditsScreenCanvas);
             HideCanvas(MainScreenCanvas);
+            HideCanvas(HighScoreCanvas);
         }
 
         public void HideCreditsPressed()
         {
             HideCanvas(CreditsScreenCanvas);
+            HideCanvas(HighScoreCanvas);
+            ShowCanvas(MainScreenCanvas);
+        }
+
+        public void ShowHighScorePressed()
+        {
+            RCStatics.UI.HighScore.PopulateUI(RCStatics.Data.GetScores());
+            HideCanvas(CreditsScreenCanvas);
+            HideCanvas(MainScreenCanvas);
+            ShowCanvas(HighScoreCanvas);
+        }
+
+        public void HideHighScorePressed()
+        {
+            HideCanvas(CreditsScreenCanvas);
+            HideCanvas(HighScoreCanvas);
             ShowCanvas(MainScreenCanvas);
         }
 
@@ -85,12 +103,14 @@ namespace RobotCat.UI
 
         private void HideCanvas(CanvasGroup canvas)
         {
+            canvas.blocksRaycasts = false;
             canvas.interactable = false;
             canvas.alpha = 0f;
         }
 
         private void ShowCanvas(CanvasGroup canvas)
         {
+            canvas.blocksRaycasts = true;
             canvas.interactable = true;
             canvas.alpha = 1f;
         }
