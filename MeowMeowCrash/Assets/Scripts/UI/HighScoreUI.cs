@@ -21,8 +21,8 @@ namespace RobotCat.UI
             for (int i = 0; i < scores.Count; i++)
             {
                 numString += (i + 1).ToString() + ".\n";
-                nameString += scores[i].Name + "\n";
-                scoreString += scores[i].Score.ToString() + "\n";
+                nameString += scores[i].name + "\n";
+                scoreString += scores[i].score.ToString() + "\n";
             }
 
             numText.text = numString;
