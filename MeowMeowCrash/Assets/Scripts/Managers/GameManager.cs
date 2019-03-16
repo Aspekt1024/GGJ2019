@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace RobotCat
 {
@@ -42,9 +43,15 @@ namespace RobotCat
 
         public void GameOver()
         {
-            RCStatics.Data.AddScore("You (yes you!)", RCStatics.Score.GetScore());
-            RCStatics.Data.SaveData();
-            TransistionController.instance.gameOut();
+            int score = RCStatics.Score.GetScore();
+            if (RCStatics.Data.IsNewHighscore(score))
+            {
+                RCStatics.UI.HighScore.ShowNewScore(score);
+            }
+            else
+            {
+                TransistionController.instance.gameOut();
+            }
         }
 
         public void ShowMenu()
@@ -62,6 +69,22 @@ namespace RobotCat
         }
 
         public bool IsInMenu { get { return state == States.Menu; } }
+
+        public void NewScoreSubmitted()
+        {
+            StartCoroutine(GameoverRoutine());
+        }
+
+        private IEnumerator GameoverRoutine()
+        {
+            Time.timeScale = 0f;
+            state = States.Menu;
+            RCStatics.UI.HighScore.HideButtons();
+            yield return new WaitForSecondsRealtime(3f);
+            Time.timeScale = 1f;
+            state = States.InGame;
+            TransistionController.instance.gameOut();
+        }
     }
 }
 

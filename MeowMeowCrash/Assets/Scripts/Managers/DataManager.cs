@@ -1,4 +1,5 @@
 ﻿using RobotCat.Data;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace RobotCat
     public class DataManager : MonoBehaviour
     {
         private ScoreData scoreData;
+        private string playername;
 
         private static DataManager instance;
 
@@ -25,22 +27,23 @@ namespace RobotCat
 
         private void Init()
         {
-            scoreData = new ScoreData();
+            scoreData = new ScoreData(this);
         }
 
-        public void AddScore(string name, int score)
+        public bool IsNewHighscore(int score)
         {
-            scoreData.AddScore(name, score);
+            return scoreData.IsNewHighscore(score);
+        }
+
+        public void PostNewScore(string playerName, int score)
+        {
+            scoreData.PostNewScore(playerName, score);
         }
 
         public List<ScoreItem> GetScores()
         {
-            return scoreData.Scores;
+            return scoreData.GetScores();
         }
-
-        public void SaveData()
-        {
-            scoreData.Save();
-        }
+        
     }
 }

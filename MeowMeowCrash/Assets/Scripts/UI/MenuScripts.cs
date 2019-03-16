@@ -53,7 +53,12 @@ namespace RobotCat.UI
 
         public void ShowHighScorePressed()
         {
+            ShowHighScoresWithoutPopulating();
             RCStatics.UI.HighScore.PopulateUI(RCStatics.Data.GetScores());
+        }
+
+        public void ShowHighScoresWithoutPopulating()
+        {
             HideCanvas(CreditsScreenCanvas);
             HideCanvas(MainScreenCanvas);
             ShowCanvas(HighScoreCanvas);
