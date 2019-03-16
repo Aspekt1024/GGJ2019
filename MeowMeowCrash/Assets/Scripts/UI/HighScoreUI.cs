@@ -1,4 +1,5 @@
 ﻿using RobotCat.Data;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -38,8 +39,10 @@ namespace RobotCat.UI
             RCStatics.UI.ToggleMenu();
             RCStatics.UI.Menu.ShowHighScoresWithoutPopulating();
 
-            var scores = RCStatics.Data.GetScores();
-            scores.Add(new ScoreItem("", score));
+            var scores = new List<ScoreItem>(RCStatics.Data.GetScores())
+            {
+                new ScoreItem("", score)
+            };
             scores = scores.OrderByDescending(x => x.score).ToList();
 
             PopulateUI(scores);
@@ -52,10 +55,24 @@ namespace RobotCat.UI
             scoresView.HandleSubmit();
         }
 
-        public void HideButtons()
+        public IEnumerator FadeOutRoutine()
         {
             backButton.gameObject.SetActive(false);
             submitButton.gameObject.SetActive(false);
+
+            yield return new WaitForSecondsRealtime(3f);
+            const float FADE_OUT_DURATION = 0.4f;
+            float timer = 0f;
+
+            var canvasGroup = GetComponent<CanvasGroup>();
+
+            while (timer < FADE_OUT_DURATION)
+            {
+                timer += Time.unscaledDeltaTime;
+                canvasGroup.alpha = Mathf.Lerp(1f, 0f, timer / FADE_OUT_DURATION);
+                yield return null;
+            }
+            
         }
     }
 }

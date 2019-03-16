@@ -74,6 +74,7 @@ namespace RobotCat.UI
             nameText.text = nameInput.text;
             SetNameReadonly();
             RCStatics.GameManager.NewScoreSubmitted();
+            GetComponent<Animator>().Play("NewScoreSubmitted", 0, 0f);
         }
     }
 }

@@ -26,6 +26,7 @@ namespace RobotCat.UI
             {
                 Destroy(highScoreItems[i].gameObject);
             }
+            highScoreItems.Clear();
         }
 
         public void AddScore(int index, string name, int score)
@@ -36,7 +37,6 @@ namespace RobotCat.UI
         public void AddScoreWithNameInput(int index, int score)
         {
             var scoreItem = NewScoreItem(index, "", score);
-            // TODO account for more than one editable
             scoreItem.SetNameEditable();
         }
 

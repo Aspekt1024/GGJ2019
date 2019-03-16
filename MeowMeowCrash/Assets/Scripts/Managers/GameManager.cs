@@ -46,7 +46,10 @@ namespace RobotCat
             int score = RCStatics.Score.GetScore();
             if (RCStatics.Data.IsNewHighscore(score))
             {
+                Time.timeScale = 0f;
+                state = States.Menu;
                 RCStatics.UI.HighScore.ShowNewScore(score);
+                // Show new score will provide a submit option
             }
             else
             {
@@ -77,10 +80,7 @@ namespace RobotCat
 
         private IEnumerator GameoverRoutine()
         {
-            Time.timeScale = 0f;
-            state = States.Menu;
-            RCStatics.UI.HighScore.HideButtons();
-            yield return new WaitForSecondsRealtime(3f);
+            yield return StartCoroutine(RCStatics.UI.HighScore.FadeOutRoutine());
             Time.timeScale = 1f;
             state = States.InGame;
             TransistionController.instance.gameOut();
