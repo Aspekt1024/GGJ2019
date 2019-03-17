@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6094,7 +6094,7 @@ PrefabInstance:
     - target: {fileID: 1713942702713368212, guid: 87a6eb69c0da97b4687a13f55d826764,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000005010838
+      value: 0.00009125526
       objectReference: {fileID: 0}
     - target: {fileID: 6878192611222684191, guid: 87a6eb69c0da97b4687a13f55d826764,
         type: 3}
@@ -8478,6 +8478,7 @@ GameObject:
   - component: {fileID: 2094674390}
   - component: {fileID: 2094674392}
   - component: {fileID: 2094674394}
+  - component: {fileID: 2094674393}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -8532,9 +8533,20 @@ MonoBehaviour:
   amountToReset: 5
   excitedOnReBat: 2
   excitementForBat: 75
-  excitementForCollide: 30
-  excitementForFloor: 10
   excitementOnInitialHit: 350
+--- !u!114 &2094674393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094674389}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a026a5d496809d4095bd678dab831be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DebugMode: 1
 --- !u!114 &2094674394
 MonoBehaviour:
   m_ObjectHideFlags: 0

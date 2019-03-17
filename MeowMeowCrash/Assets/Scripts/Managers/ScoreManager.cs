@@ -24,8 +24,6 @@ public class ScoreManager:MonoBehaviour
 
     [SerializeField] private float excitedOnReBat = 5.0f;
     [SerializeField] private float excitementForBat = 100.0f;
-    [SerializeField] private float excitementForCollide = 50.0f;
-    [SerializeField] private float excitementForFloor = 25.0f;
     [SerializeField] private float excitementOnInitialHit = 350.0f;
 
     private float currentExcitement = 0.0f;
@@ -106,6 +104,11 @@ public class ScoreManager:MonoBehaviour
         ExcitementDecreaseRate -= amountToReset;
 
         AddToScore((int)excitementForBat);
+    }
+
+    public void SetScoreDebug(int points)
+    {
+        score = points;
     }
 
     private void AddToScore(int points)

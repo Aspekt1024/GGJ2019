@@ -22,6 +22,13 @@ namespace RobotCat
 
         private void Start()
         {
+            bool success = statics.AssertReferences();
+            if (!success)
+            {
+                return;
+            }
+
+            Debug.Log("Starting up game");
             RCStatics.UI.HideMenu();
             statics.OnStart();
         }
@@ -43,18 +50,7 @@ namespace RobotCat
 
         public void GameOver()
         {
-            int score = RCStatics.Score.GetScore();
-            if (RCStatics.Data.IsNewHighscore(score))
-            {
-                Time.timeScale = 0f;
-                state = States.Menu;
-                RCStatics.UI.HighScore.ShowNewScore(score);
-                // Show new score will provide a submit option
-            }
-            else
-            {
-                TransistionController.instance.gameOut();
-            }
+            StartCoroutine(GameOverRoutine());
         }
 
         public void ShowMenu()
@@ -75,16 +71,40 @@ namespace RobotCat
 
         public void NewScoreSubmitted()
         {
-            StartCoroutine(GameoverRoutine());
+            StartCoroutine(HighScoreSubmittedRoutine());
         }
 
-        private IEnumerator GameoverRoutine()
+        private IEnumerator GameOverRoutine()
+        {
+            state = States.Menu;
+
+            const float TIME_SLOW_DURATION = 1f;
+            float timer = 0f;
+            while (timer < TIME_SLOW_DURATION)
+            {
+                timer += Time.unscaledDeltaTime;
+                Time.timeScale = Mathf.Lerp(1f, 0f, timer / TIME_SLOW_DURATION);
+                yield return null;
+            }
+
+            int score = RCStatics.Score.GetScore();
+            if (RCStatics.Data.IsNewHighscore(score))
+            {
+                RCStatics.UI.HighScore.ShowNewScore(score);
+                // Show new score will provide a submit option
+            }
+            else
+            {
+                TransistionController.instance.GameOut();
+            }
+        }
+
+        private IEnumerator HighScoreSubmittedRoutine()
         {
             yield return StartCoroutine(RCStatics.UI.HighScore.FadeOutRoutine());
-            Time.timeScale = 1f;
-            state = States.InGame;
-            TransistionController.instance.gameOut();
+            TransistionController.instance.GameOut();
         }
+
     }
 }
 

@@ -2363,7 +2363,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 6878192611222684191}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.99918634
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -4119,7 +4119,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000002471609}
+  m_AnchoredPosition: {x: 0, y: 0.000018738698}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &7261555819394060616
@@ -4488,11 +4488,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 224596784157894246}
     m_Modifications:
-    - target: {fileID: 1397397846695817338, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
-        type: 3}
-      propertyPath: m_Name
-      value: ReturnButton
-      objectReference: {fileID: 0}
     - target: {fileID: 1188308487836619792, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4603,6 +4598,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.9136
       objectReference: {fileID: 0}
+    - target: {fileID: 1397397846695817338, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
+        type: 3}
+      propertyPath: m_Name
+      value: ReturnButton
+      objectReference: {fileID: 0}
     - target: {fileID: 1366714792489822424, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
         type: 3}
       propertyPath: m_Colors.m_HighlightedColor.r
@@ -4638,11 +4638,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 224596784157894246}
     m_Modifications:
-    - target: {fileID: 1397397846695817338, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
-        type: 3}
-      propertyPath: m_Name
-      value: HighScoreButton
-      objectReference: {fileID: 0}
     - target: {fileID: 1188308487836619792, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4753,6 +4748,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.9136
       objectReference: {fileID: 0}
+    - target: {fileID: 1397397846695817338, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
+        type: 3}
+      propertyPath: m_Name
+      value: HighScoreButton
+      objectReference: {fileID: 0}
     - target: {fileID: 1366714792489822424, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
         type: 3}
       propertyPath: m_Colors.m_HighlightedColor.r
@@ -4813,11 +4813,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 224596784157894246}
     m_Modifications:
-    - target: {fileID: 1397397846695817338, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
-        type: 3}
-      propertyPath: m_Name
-      value: ExitButton
-      objectReference: {fileID: 0}
     - target: {fileID: 1188308487836619792, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4928,6 +4923,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.9136
       objectReference: {fileID: 0}
+    - target: {fileID: 1397397846695817338, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
+        type: 3}
+      propertyPath: m_Name
+      value: ExitButton
+      objectReference: {fileID: 0}
     - target: {fileID: 1366714792489822424, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
         type: 3}
       propertyPath: m_Colors.m_HighlightedColor.r
@@ -4978,11 +4978,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 224596784157894246}
     m_Modifications:
-    - target: {fileID: 1397397846695817338, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
-        type: 3}
-      propertyPath: m_Name
-      value: CreditsButton
-      objectReference: {fileID: 0}
     - target: {fileID: 1188308487836619792, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5092,6 +5087,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.9136
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397397846695817338, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
+        type: 3}
+      propertyPath: m_Name
+      value: CreditsButton
       objectReference: {fileID: 0}
     - target: {fileID: 1366714792489822424, guid: f2c55565b8c3b2a44af45c79c2ec4a9e,
         type: 3}

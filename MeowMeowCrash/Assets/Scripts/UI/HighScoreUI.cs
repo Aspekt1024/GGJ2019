@@ -17,7 +17,7 @@ namespace RobotCat.UI
 
         public void PopulateUI(List<ScoreItem> scores)
         {
-            scoresView.Reset();
+            scoresView.ResetScores();
             scoresView.SetContentSize(scores.Count);
             for (int i = 0; i < scores.Count; i++)
             {

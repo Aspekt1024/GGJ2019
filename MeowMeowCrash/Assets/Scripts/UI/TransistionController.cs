@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 namespace RobotCat
 {
@@ -13,35 +11,65 @@ namespace RobotCat
 
         public float currentTime = 0.0f;
         public float timeToFade = 5.0f;
-
-        private IEnumerator fadeOutEnumerator;
-        private IEnumerator fadeInEnumerator;
+        
         public AnimationCurve fadeCurve;
 
         private bool transistioning = false;
 
-        private IEnumerator transitionOut()
+        void Awake()
+        {
+            if(instance != null)
+            {
+                Destroy(this);
+            }
+            instance = this;
+        }
+
+        void Start()
+        {
+            GameStart();
+        }
+
+        public void GameOut()
+        {
+            if(!transistioning)
+            {
+                StartCoroutine(TransitionOut());
+            }
+
+        }
+
+        public void GameStart()
+        {
+            if (!transistioning)
+            {
+                StartCoroutine(TransitionIn());
+            }
+        }
+
+        private IEnumerator TransitionOut()
         {
             //Transistion Out Music
             currentTime = 0.0f;
             transistioning = true;
             while (currentTime < timeToFade)
             {
-                currentTime += Time.deltaTime;
+                currentTime += Time.unscaledDeltaTime;
                 currentTime = Mathf.Min(currentTime, timeToFade);
                 canvasController.alpha = fadeCurve.Evaluate(currentTime / timeToFade);
                 yield return null;
             }
             //Cleanup Scene and call Scene Manager
             transistioning = false;
+            Time.timeScale = 1f;
 
-            //Load sleepign scene
+            //Load sleeping scene
             SceneManager.LoadScene("Transmission'", LoadSceneMode.Single);
 
             RCStatics.Audio.CueSleepTheme();
         }
 
-        private IEnumerator transitionIn()
+        private IEnumerator TransitionIn()
         {
             //Start the music maybe while increasing volume?
             currentTime = 0.0f;
@@ -51,49 +79,12 @@ namespace RobotCat
             {
                 currentTime += Time.deltaTime;
                 currentTime = Mathf.Min(currentTime, timeToFade);
-                canvasController.alpha = fadeCurve.Evaluate(1-(currentTime / timeToFade));
+                canvasController.alpha = fadeCurve.Evaluate(1 - (currentTime / timeToFade));
                 RCStatics.Audio.CueMainTheme();
 
                 yield return null;
             }
             transistioning = false;
         }
-
-        // Use this for initialization
-        void Awake()
-        {
-            if(instance != null)
-            {
-                Destroy(this);
-            }
-            instance = this;
-            fadeOutEnumerator = transitionOut();
-            fadeInEnumerator = transitionIn();
-        }
-
-        void Start()
-        {
-            gameStart();
-        }
-
-        public void gameOut()
-        {
-            if(!transistioning)
-            {
-                StartCoroutine(fadeOutEnumerator);
-            }
-
-        }
-
-        public void gameStart()
-        {
-            if (!transistioning)
-            {
-                StartCoroutine(fadeInEnumerator);
-            }
-
-        }
-
-
     }
 }

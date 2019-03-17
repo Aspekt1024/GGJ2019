@@ -9,7 +9,7 @@ namespace RobotCat
     {
         public static CupManager instance = null;
 
-        private List<GrabbableObject> potentialCups;
+        private List<GrabbableObject> potentialCups = new List<GrabbableObject>();
         public int cupsAtStartUp = 20;
         public SpawnLocation[] spawnLocations;
         public GrabbableObject cupPrefab;

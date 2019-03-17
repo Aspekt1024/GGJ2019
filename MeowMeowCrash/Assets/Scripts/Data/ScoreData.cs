@@ -42,9 +42,7 @@ namespace RobotCat.Data
             Scores = new List<ScoreItem>();
 
             LoadDummyScores();
-            Debug.Log("Loading scores");
             Load();
-            Debug.Log("Scores loaded");
         }
 
         public List<ScoreItem> GetScores()

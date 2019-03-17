@@ -20,9 +20,13 @@ namespace RobotCat.UI
         }
         private States state;
 
-        private void Start()
+        private void Awake()
         {
             canvasGroup = GetComponent<CanvasGroup>();
+        }
+
+        private void Start()
+        {
             HideCreditsPressed();
         }
 

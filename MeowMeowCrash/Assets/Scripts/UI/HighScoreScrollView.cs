@@ -20,7 +20,7 @@ namespace RobotCat.UI
             parentRect = ContentParent.GetComponent<RectTransform>();
         }
 
-        public void Reset()
+        public void ResetScores()
         {
             for (int i = highScoreItems.Count - 1; i >= 0; i--)
             {
