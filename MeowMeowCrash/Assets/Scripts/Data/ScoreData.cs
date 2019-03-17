@@ -34,14 +34,17 @@ namespace RobotCat.Data
 
         private DataManager manager;
 
-        public List<ScoreItem> Scores { get; private set; } = new List<ScoreItem>();
+        public List<ScoreItem> Scores { get; private set; }
 
         public ScoreData(DataManager manager)
         {
             this.manager = manager;
+            Scores = new List<ScoreItem>();
 
             LoadDummyScores();
+            Debug.Log("Loading scores");
             Load();
+            Debug.Log("Scores loaded");
         }
 
         public List<ScoreItem> GetScores()
